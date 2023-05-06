@@ -32,6 +32,10 @@ class MockAPIService: APIService {
         
         let quest0 = Quest(title: "Mock Quest", content: "Make a snow man. Your time starts now.", authorId: user0.id, assigned: [], endTime: Date.now)
         self.quests[quest0.id] = quest0
+        let quest1 = Quest(title: "Mock Quest 2", content: "Do 10,000 steps.", authorId: user0.id, assigned: [], endTime: Date.now)
+        self.quests[quest1.id] = quest1
+        let quest2 = Quest(title: "Mock Quest 3", content: "Finish Assessment 3", authorId: user1.id, assigned: [user0.id], endTime: Date.now)
+        self.quests[quest2.id] = quest2
     }
     
     func login(phoneNumber: String) -> User? {
@@ -64,6 +68,11 @@ class MockAPIService: APIService {
     func getQuests(userId: UUID) -> [Quest] {
         var foundQuests: [Quest] = []
         for (_, quest) in self.quests {
+            if quest.authorId == userId {
+                foundQuests.append(quest)
+                continue
+            }
+            
             for assigned in quest.assigned {
                 if assigned == userId {
                     foundQuests.append(quest)

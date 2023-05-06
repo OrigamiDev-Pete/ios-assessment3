@@ -1,5 +1,5 @@
 //
-//  DetailsViewController.swift
+//  QuestDetailsViewController.swift
 //  Sidequest
 //
 //  Created by Peter de Vroom on 6/5/2023.
