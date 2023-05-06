@@ -17,6 +17,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wKx-uD-ZsW">
+                                <rect key="frame" x="20" y="103" width="353" height="656"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" My Quests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1p2-Tw-6Sq">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="31.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="myu-IR-DEb" userLabel="All Quests Button" customClass="ListButtonView" customModule="Sidequest" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="41.333333333333343" width="353" height="56"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="All"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="Test:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jjz-pa-MWE"/>
+                                        </connections>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rg1-Im-d5J" userLabel="Today Quests Button" customClass="ListButtonView" customModule="Sidequest" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="107.33333333333334" width="353" height="56"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Today"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="headerColour">
+                                                <color key="value" systemColor="systemCyanColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="Test:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tbL-eQ-BFb"/>
+                                        </connections>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" My Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtg-bY-vKW">
+                                        <rect key="frame" x="0.0" y="173.33333333333331" width="353" height="31.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPI-3y-K55">
+                                        <rect key="frame" x="0.0" y="214.66666666666671" width="353" height="441.33333333333326"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <segue destination="88j-yM-Gey" kind="show" id="eLm-Mh-cvv"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="CAl-as-t14">
                                 <rect key="frame" x="10" y="759" width="373" height="34.333333333333371"/>
                                 <subviews>
@@ -41,46 +89,36 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wKx-uD-ZsW">
-                                <rect key="frame" x="20" y="103" width="353" height="97"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" My Quests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1p2-Tw-6Sq">
-                                        <rect key="frame" x="0.0" y="0.0" width="353" height="31.333333333333332"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" My Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtg-bY-vKW">
-                                        <rect key="frame" x="0.0" y="31.333333333333343" width="353" height="31.333333333333329"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPI-3y-K55">
-                                        <rect key="frame" x="0.0" y="62.666666666666657" width="353" height="34.333333333333343"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                        <connections>
-                                            <segue destination="88j-yM-Gey" kind="show" id="eLm-Mh-cvv"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="wKx-uD-ZsW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="7NF-6f-sq7"/>
                             <constraint firstItem="wKx-uD-ZsW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="8xg-6b-gz9"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wKx-uD-ZsW" secondAttribute="trailing" constant="20" id="9aZ-5a-I7U"/>
+                            <constraint firstItem="CAl-as-t14" firstAttribute="top" secondItem="wKx-uD-ZsW" secondAttribute="bottom" id="B9b-Lx-yWD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CAl-as-t14" secondAttribute="trailing" constant="10" id="XL5-NT-iiB"/>
                             <constraint firstItem="CAl-as-t14" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="rWa-bC-eMJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CAl-as-t14" secondAttribute="bottom" constant="24.666666666666629" id="sLe-zh-zGm"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="K1x-iQ-bde"/>
+                    <connections>
+                        <outlet property="allQuestsButton" destination="myu-IR-DEb" id="Cf4-yo-ozd"/>
+                        <outlet property="todayQuestsButton" destination="Rg1-Im-d5J" id="0Bf-CQ-Cir"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="pCl-Xx-c13">
+                    <connections>
+                        <action selector="onAllQuestsPressed:" destination="BYZ-38-t0r" id="Sg2-ul-Eos"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Ho2-fd-HdR">
+                    <connections>
+                        <action selector="onTodayQuestsPressed:" destination="BYZ-38-t0r" id="XZY-Lb-2K1"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="979.38931297709917" y="3.5211267605633805"/>
         </scene>
@@ -306,7 +344,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="WBp-IW-oOA"/>
+        <segue reference="mwX-hg-3Kt"/>
     </inferredMetricsTieBreakers>
     <resources>
         <namedColor name="AccentColor">
@@ -314,6 +352,9 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemCyanColor">
+            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

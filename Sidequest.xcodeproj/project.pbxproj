@@ -16,6 +16,9 @@
 		D04FC8EF2A05FE1700050186 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8EE2A05FE1600050186 /* AddFriendViewController.swift */; };
 		D04FC8F12A06097A00050186 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8F02A06097A00050186 /* AppState.swift */; };
 		D04FC8F42A0619DD00050186 /* QuestTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8F32A0619DD00050186 /* QuestTableCell.swift */; };
+		D04FC8F82A06282C00050186 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8F72A06282C00050186 /* RoundedView.swift */; };
+		D04FC8FC2A06364200050186 /* ListButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04FC8FB2A06364200050186 /* ListButtonView.xib */; };
+		D04FC8FE2A0636E000050186 /* ListButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8FD2A0636E000050186 /* ListButtonView.swift */; };
 		D0FEAFC42A049A59003E6738 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEAFC32A049A59003E6738 /* AppDelegate.swift */; };
 		D0FEAFC62A049A59003E6738 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEAFC52A049A59003E6738 /* SceneDelegate.swift */; };
 		D0FEAFC82A049A59003E6738 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEAFC72A049A59003E6738 /* HomeViewController.swift */; };
@@ -34,6 +37,9 @@
 		D04FC8EE2A05FE1600050186 /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		D04FC8F02A06097A00050186 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		D04FC8F32A0619DD00050186 /* QuestTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTableCell.swift; sourceTree = "<group>"; };
+		D04FC8F72A06282C00050186 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
+		D04FC8FB2A06364200050186 /* ListButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListButtonView.xib; sourceTree = "<group>"; };
+		D04FC8FD2A0636E000050186 /* ListButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListButtonView.swift; sourceTree = "<group>"; };
 		D0FEAFC02A049A59003E6738 /* Sidequest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sidequest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0FEAFC32A049A59003E6738 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0FEAFC52A049A59003E6738 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +94,9 @@
 			isa = PBXGroup;
 			children = (
 				D04FC8F32A0619DD00050186 /* QuestTableCell.swift */,
+				D04FC8F72A06282C00050186 /* RoundedView.swift */,
+				D04FC8FB2A06364200050186 /* ListButtonView.xib */,
+				D04FC8FD2A0636E000050186 /* ListButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,6 +195,7 @@
 			files = (
 				D0FEAFD02A049A5A003E6738 /* LaunchScreen.storyboard in Resources */,
 				D0FEAFCD2A049A5A003E6738 /* Assets.xcassets in Resources */,
+				D04FC8FC2A06364200050186 /* ListButtonView.xib in Resources */,
 				D0FEAFCB2A049A59003E6738 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -204,6 +214,8 @@
 				D0FEAFC82A049A59003E6738 /* HomeViewController.swift in Sources */,
 				D04FC8F42A0619DD00050186 /* QuestTableCell.swift in Sources */,
 				D0FEAFC42A049A59003E6738 /* AppDelegate.swift in Sources */,
+				D04FC8F82A06282C00050186 /* RoundedView.swift in Sources */,
+				D04FC8FE2A0636E000050186 /* ListButtonView.swift in Sources */,
 				D04FC8F12A06097A00050186 /* AppState.swift in Sources */,
 				D04FC8BE2A05D86000050186 /* User.swift in Sources */,
 				D04FC8EB2A05FDFF00050186 /* NewQuestViewController.swift in Sources */,
