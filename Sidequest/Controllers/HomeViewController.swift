@@ -15,6 +15,17 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Get the APIService
         apiService = (UIApplication.shared.delegate as? AppDelegate)?.apiService
+        
+        if let currentUser = apiService.login(phoneNumber: "000") {
+            AppState.shared.currentUser = currentUser
+        } else {
+            fatalError("User not found.")
+        }
+        
+        if let currentUser = AppState.shared.currentUser {
+            print(currentUser.fullname)
+        }
+
     }
 }
 

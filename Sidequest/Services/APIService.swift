@@ -30,7 +30,7 @@ class MockAPIService: APIService {
         let user2 = User(firstName: "John", lastName: "Denver", phoneNumber: "222", friendIds: [])
         self.users[user2.id] = user2
         
-        let quest0 = Quest(title: "Mock Quest", content: "Make a snow man. Your time starts now.", authorId: user0.id, assigned: [])
+        let quest0 = Quest(title: "Mock Quest", content: "Make a snow man. Your time starts now.", authorId: user0.id, assigned: [], endTime: Date.now)
         self.quests[quest0.id] = quest0
     }
     

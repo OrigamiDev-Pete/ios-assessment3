@@ -14,6 +14,7 @@
 		D04FC8EB2A05FDFF00050186 /* NewQuestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8EA2A05FDFF00050186 /* NewQuestViewController.swift */; };
 		D04FC8ED2A05FE0900050186 /* QuestDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8EC2A05FE0900050186 /* QuestDetailsViewController.swift */; };
 		D04FC8EF2A05FE1700050186 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8EE2A05FE1600050186 /* AddFriendViewController.swift */; };
+		D04FC8F12A06097A00050186 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8F02A06097A00050186 /* AppState.swift */; };
 		D0FEAFC42A049A59003E6738 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEAFC32A049A59003E6738 /* AppDelegate.swift */; };
 		D0FEAFC62A049A59003E6738 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEAFC52A049A59003E6738 /* SceneDelegate.swift */; };
 		D0FEAFC82A049A59003E6738 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEAFC72A049A59003E6738 /* HomeViewController.swift */; };
@@ -30,6 +31,7 @@
 		D04FC8EA2A05FDFF00050186 /* NewQuestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewQuestViewController.swift; sourceTree = "<group>"; };
 		D04FC8EC2A05FE0900050186 /* QuestDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestDetailsViewController.swift; sourceTree = "<group>"; };
 		D04FC8EE2A05FE1600050186 /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
+		D04FC8F02A06097A00050186 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		D0FEAFC02A049A59003E6738 /* Sidequest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sidequest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0FEAFC32A049A59003E6738 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0FEAFC52A049A59003E6738 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				D0FEAFCC2A049A5A003E6738 /* Assets.xcassets */,
 				D0FEAFCE2A049A5A003E6738 /* LaunchScreen.storyboard */,
 				D0FEAFD12A049A5A003E6738 /* Info.plist */,
+				D04FC8F02A06097A00050186 /* AppState.swift */,
 			);
 			path = Sidequest;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 				D04FC8ED2A05FE0900050186 /* QuestDetailsViewController.swift in Sources */,
 				D0FEAFC82A049A59003E6738 /* HomeViewController.swift in Sources */,
 				D0FEAFC42A049A59003E6738 /* AppDelegate.swift in Sources */,
+				D04FC8F12A06097A00050186 /* AppState.swift in Sources */,
 				D04FC8BE2A05D86000050186 /* User.swift in Sources */,
 				D04FC8EB2A05FDFF00050186 /* NewQuestViewController.swift in Sources */,
 				D04FC8C02A05DBFC00050186 /* APIService.swift in Sources */,
