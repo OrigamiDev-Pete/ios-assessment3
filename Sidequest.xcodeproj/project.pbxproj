@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D04FC8BC2A05D62F00050186 /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8BB2A05D62F00050186 /* Quest.swift */; };
+		D04FC8BE2A05D86000050186 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8BD2A05D86000050186 /* User.swift */; };
+		D04FC8C02A05DBFC00050186 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8BF2A05DBFC00050186 /* APIService.swift */; };
 		D04FC8E72A05FD8400050186 /* QuestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8E62A05FD8400050186 /* QuestsViewController.swift */; };
 		D04FC8EB2A05FDFF00050186 /* NewQuestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8EA2A05FDFF00050186 /* NewQuestViewController.swift */; };
 		D04FC8ED2A05FE0900050186 /* QuestDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8EC2A05FE0900050186 /* QuestDetailsViewController.swift */; };
@@ -20,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D04FC8BB2A05D62F00050186 /* Quest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = "<group>"; };
+		D04FC8BD2A05D86000050186 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D04FC8BF2A05DBFC00050186 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		D04FC8E62A05FD8400050186 /* QuestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestsViewController.swift; sourceTree = "<group>"; };
 		D04FC8EA2A05FDFF00050186 /* NewQuestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewQuestViewController.swift; sourceTree = "<group>"; };
 		D04FC8EC2A05FE0900050186 /* QuestDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestDetailsViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +63,23 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		D04FC8B92A05D59A00050186 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D04FC8BF2A05DBFC00050186 /* APIService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D04FC8BA2A05D5A900050186 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D04FC8BB2A05D62F00050186 /* Quest.swift */,
+				D04FC8BD2A05D86000050186 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		D0FEAFB72A049A59003E6738 = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +99,8 @@
 		D0FEAFC22A049A59003E6738 /* Sidequest */ = {
 			isa = PBXGroup;
 			children = (
+				D04FC8BA2A05D5A900050186 /* Models */,
+				D04FC8B92A05D59A00050186 /* Services */,
 				D04FC8B82A05D58D00050186 /* Controllers */,
 				D0FEAFC32A049A59003E6738 /* AppDelegate.swift */,
 				D0FEAFC52A049A59003E6738 /* SceneDelegate.swift */,
@@ -159,11 +184,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D04FC8EF2A05FE1700050186 /* AddFriendViewController.swift in Sources */,
+				D04FC8BC2A05D62F00050186 /* Quest.swift in Sources */,
 				D04FC8E72A05FD8400050186 /* QuestsViewController.swift in Sources */,
 				D04FC8ED2A05FE0900050186 /* QuestDetailsViewController.swift in Sources */,
 				D0FEAFC82A049A59003E6738 /* HomeViewController.swift in Sources */,
 				D0FEAFC42A049A59003E6738 /* AppDelegate.swift in Sources */,
+				D04FC8BE2A05D86000050186 /* User.swift in Sources */,
 				D04FC8EB2A05FDFF00050186 /* NewQuestViewController.swift in Sources */,
+				D04FC8C02A05DBFC00050186 /* APIService.swift in Sources */,
 				D0FEAFC62A049A59003E6738 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

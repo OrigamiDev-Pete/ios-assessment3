@@ -9,10 +9,12 @@ import UIKit
 
 class QuestDetailsViewController: UIViewController {
 
+    var apiService: APIService!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        // Get the APIService
+        apiService = (UIApplication.shared.delegate as? AppDelegate)?.apiService
     }
     
 
