@@ -9,9 +9,9 @@ import UIKit
 
 class QuestTableCell: UITableViewCell {
 
-    @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var contentPreview: UILabel!
-    @IBOutlet weak var status: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var contentPreviewLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

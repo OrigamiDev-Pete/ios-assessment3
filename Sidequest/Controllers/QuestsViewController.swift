@@ -13,14 +13,19 @@ class QuestsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var apiService: APIService!
     var quests: [Quest] = []
     
+    @IBOutlet weak var headingLabel: UILabel!
+    
+    var heading: String = "Title"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Get the APIService
         apiService = (UIApplication.shared.delegate as? AppDelegate)?.apiService
-        guard let currentUser = AppState.shared.currentUser else { return }
-        print(currentUser.id)
-        quests = apiService.getQuests(userId: currentUser.id)
-        print(quests)
+        // guard let currentUser = AppState.shared.currentUser else { return }
+        
+        headingLabel.text = heading
+        
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -29,8 +34,15 @@ class QuestsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "QuestCell", for: indexPath) as! QuestTableCell
-        cell.title.text = quests[indexPath.row].title
-        cell.contentPreview.text = quests[indexPath.row].content
+        
+        let quest = quests[indexPath.row]
+        
+        cell.titleLabel.text = quest.title
+        cell.contentPreviewLabel.text = quest.content
+        let questStatus = quest.status.getStatusUIDetails()
+        cell.statusLabel.text = questStatus.1
+        cell.statusLabel.textColor = questStatus.0
+        
         return cell
     }
     

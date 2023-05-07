@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wKx-uD-ZsW">
-                                <rect key="frame" x="20" y="103" width="353" height="656"/>
+                                <rect key="frame" x="20" y="102.99999999999999" width="353" height="204.66666666666663"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" My Quests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1p2-Tw-6Sq">
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="31.333333333333332"/>
@@ -33,7 +33,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="All"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="Test:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jjz-pa-MWE"/>
+                                            <action selector="onAllQuestsPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uOQ-8m-Pv0"/>
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rg1-Im-d5J" userLabel="Today Quests Button" customClass="ListButtonView" customModule="Sidequest" customModuleProvider="target">
@@ -46,7 +46,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="Test:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tbL-eQ-BFb"/>
+                                            <action selector="onTodayQuestsPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="23p-XH-VHC"/>
                                         </connections>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" My Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtg-bY-vKW">
@@ -55,23 +55,15 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPI-3y-K55">
-                                        <rect key="frame" x="0.0" y="214.66666666666671" width="353" height="441.33333333333326"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                        <connections>
-                                            <segue destination="88j-yM-Gey" kind="show" id="eLm-Mh-cvv"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="CAl-as-t14">
                                 <rect key="frame" x="10" y="759" width="373" height="34.333333333333371"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wfx-g0-OBC">
-                                        <rect key="frame" x="0.0" y="0.0" width="136.66666666666666" height="34.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="108.66666666666667" height="34.333333333333336"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="New Reminder">
+                                        <buttonConfiguration key="configuration" style="plain" title="New Quest">
                                             <fontDescription key="titleFontDescription" type="boldSystem" pointSize="16"/>
                                         </buttonConfiguration>
                                         <connections>
@@ -96,7 +88,6 @@
                             <constraint firstItem="wKx-uD-ZsW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="7NF-6f-sq7"/>
                             <constraint firstItem="wKx-uD-ZsW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="8xg-6b-gz9"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wKx-uD-ZsW" secondAttribute="trailing" constant="20" id="9aZ-5a-I7U"/>
-                            <constraint firstItem="CAl-as-t14" firstAttribute="top" secondItem="wKx-uD-ZsW" secondAttribute="bottom" id="B9b-Lx-yWD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CAl-as-t14" secondAttribute="trailing" constant="10" id="XL5-NT-iiB"/>
                             <constraint firstItem="CAl-as-t14" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="rWa-bC-eMJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CAl-as-t14" secondAttribute="bottom" constant="24.666666666666629" id="sLe-zh-zGm"/>
@@ -201,13 +192,13 @@
         <!--Quests View Controller-->
         <scene sceneID="7TJ-Tm-tUv">
             <objects>
-                <viewController id="88j-yM-Gey" customClass="QuestsViewController" customModule="Sidequest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QuestsViewController" id="88j-yM-Gey" customClass="QuestsViewController" customModule="Sidequest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fPe-rt-baZ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XFY-fQ-HyD">
-                                <rect key="frame" x="16" y="103" width="65.333333333333329" height="38.333333333333343"/>
+                                <rect key="frame" x="16" y="59" width="65.333333333333329" height="38.333333333333343"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
                                 <color key="textColor" name="AccentColor"/>
                                 <nil key="highlightedColor"/>
@@ -215,7 +206,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M08-Ca-fcR">
                                 <rect key="frame" x="20" y="784.66666666666663" width="353" height="33.333333333333371"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="New Reminder">
+                                <buttonConfiguration key="configuration" style="plain" title="New Quest">
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="16"/>
                                 </buttonConfiguration>
                                 <connections>
@@ -223,7 +214,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="7ti-g3-odK">
-                                <rect key="frame" x="20" y="146.33333333333331" width="353" height="638.33333333333348"/>
+                                <rect key="frame" x="20" y="102.33333333333331" width="353" height="682.33333333333348"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="QuestCell" rowHeight="70" id="sNb-ae-nmj" customClass="QuestTableCell" customModule="Sidequest" customModuleProvider="target">
@@ -279,9 +270,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="contentPreview" destination="Ypk-Or-sxO" id="G6C-mq-UUh"/>
-                                            <outlet property="status" destination="KRF-Gb-kxo" id="Yin-2i-F2B"/>
-                                            <outlet property="title" destination="cUp-K4-lcy" id="bbv-yp-AcB"/>
+                                            <outlet property="contentPreviewLabel" destination="Ypk-Or-sxO" id="g1b-FO-Vwf"/>
+                                            <outlet property="statusLabel" destination="KRF-Gb-kxo" id="WaQ-ig-y8W"/>
+                                            <outlet property="titleLabel" destination="cUp-K4-lcy" id="87H-EW-2xN"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -308,6 +299,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="RaF-Bb-QlT"/>
+                    <connections>
+                        <outlet property="headingLabel" destination="XFY-fQ-HyD" id="3az-3S-1Uh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rLB-BQ-gW0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -344,7 +338,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mwX-hg-3Kt"/>
+        <segue reference="WBp-IW-oOA"/>
     </inferredMetricsTieBreakers>
     <resources>
         <namedColor name="AccentColor">

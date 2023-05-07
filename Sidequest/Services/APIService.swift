@@ -31,10 +31,12 @@ class MockAPIService: APIService {
         self.users[user2.id] = user2
         
         let quest0 = Quest(title: "Mock Quest", content: "Make a snow man. Your time starts now.", authorId: user0.id, assigned: [], endTime: Date.now)
+        quest0.status = .complete
         self.quests[quest0.id] = quest0
         let quest1 = Quest(title: "Mock Quest 2", content: "Do 10,000 steps.", authorId: user0.id, assigned: [], endTime: Date.now)
+        quest1.status = .overdue
         self.quests[quest1.id] = quest1
-        let quest2 = Quest(title: "Mock Quest 3", content: "Finish Assessment 3", authorId: user1.id, assigned: [user0.id], endTime: Date.now)
+        let quest2 = Quest(title: "Mock Quest 3", content: "Finish Assessment 3", authorId: user1.id, assigned: [user0.id], endTime: Calendar.current.date(byAdding: .day, value: 1, to: Date.now)!)
         self.quests[quest2.id] = quest2
     }
     

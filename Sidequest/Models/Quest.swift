@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import UIKit
 
 class Quest: Identifiable {
     let id: UUID
     let title: String
     let content: String
-    var complete: Bool = false
+    var status: QuestStatus = .active
     let authorId: UUID
     var assigned: [UUID]
     let endTime: Date
@@ -23,5 +24,24 @@ class Quest: Identifiable {
         self.authorId = authorId
         self.assigned = assigned
         self.endTime = endTime
+    }
+   
+}
+
+enum QuestStatus {
+    case active
+    case complete
+    case overdue
+    
+    func getStatusUIDetails() -> (UIColor, String) {
+        switch self {
+        case .active:
+            return (UIColor.systemGreen, "Active")
+        case .complete:
+            return (UIColor.systemBlue, "Complete")
+        case .overdue:
+            return (UIColor.systemRed, "Failed")
+        }
+        
     }
 }

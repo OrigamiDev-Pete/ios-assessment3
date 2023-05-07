@@ -41,14 +41,28 @@ class HomeViewController: UIViewController {
         todayQuestsButton.amount = todayQuestCount
     }
     
-    @IBAction func Test(_ sender: Any) {
-        print("yep")
+    @IBAction func onAllQuestsPressed(_ sender: ListButtonView) {
+        let questsViewController = self.storyboard?.instantiateViewController(withIdentifier: "QuestsViewController") as! QuestsViewController
+        questsViewController.quests = quests
+        questsViewController.heading = "All"
+        
+        self.navigationController?.pushViewController(questsViewController, animated: true)
     }
-    @IBAction func onAllQuestsPressed(_ sender: UITapGestureRecognizer) {
-        print("here")
+    
+    @IBAction func onTodayQuestsPressed(_ sender: ListButtonView) {
+        let questsViewController = self.storyboard?.instantiateViewController(withIdentifier: "QuestsViewController") as! QuestsViewController
+        
+        var todaysQuests: [Quest] = []
+        for quest in quests {
+            if Calendar.current.isDateInToday(quest.endTime) {
+                todaysQuests.append(quest)
+            }
+        }
+        questsViewController.quests = todaysQuests
+        questsViewController.heading = "Today"
+        
+        self.navigationController?.pushViewController(questsViewController, animated: true)
     }
-    @IBAction func onTodayQuestsPressed(_ sender: Any) {
-        print("ere")
-    }
+    
 }
 

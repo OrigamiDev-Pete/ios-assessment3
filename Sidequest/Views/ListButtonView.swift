@@ -41,7 +41,6 @@ import UIKit
         }
     }
     
-    
     private func configureView() {
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: "ListButtonView", bundle: bundle)
