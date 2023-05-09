@@ -25,7 +25,9 @@ class HomeViewController: UIViewController {
         } else {
             fatalError("User not found.")
         }
-       
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
        guard let currentUser = AppState.shared.currentUser else { return }
         
         quests = apiService.getQuests(userId: currentUser.id)
@@ -40,6 +42,8 @@ class HomeViewController: UIViewController {
         
         todayQuestsButton.amount = todayQuestCount
     }
+    
+    // MARK: - Events
     
     @IBAction func onAllQuestsPressed(_ sender: ListButtonView) {
         let questsViewController = self.storyboard?.instantiateViewController(withIdentifier: "QuestsViewController") as! QuestsViewController

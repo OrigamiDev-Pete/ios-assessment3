@@ -15,6 +15,7 @@ protocol APIService {
     
     func getQuests(userId: UUID) -> [Quest]
     func getQuest(questId: UUID) -> Quest?
+    func deleteQuest(questId: UUID)
 }
 
 class MockAPIService: APIService {
@@ -86,5 +87,9 @@ class MockAPIService: APIService {
     
     func getQuest(questId: UUID) -> Quest? {
         self.quests[questId]
+    }
+    
+    func deleteQuest(questId: UUID) {
+        self.quests.removeValue(forKey: questId)
     }
 }
