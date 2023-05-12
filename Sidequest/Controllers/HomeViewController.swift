@@ -14,13 +14,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var friends: [User] = []
     var quests: [Quest] = []
     @IBOutlet weak var allQuestsButton: ListButtonView!
+    @IBOutlet weak var friendsTableView: UITableView!
     @IBOutlet weak var todayQuestsButton: ListButtonView!
-    
-    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        definesPresentationContext = false
         // Get the APIService
         apiService = (UIApplication.shared.delegate as? AppDelegate)?.apiService
         
@@ -34,9 +34,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewWillAppear(_ animated: Bool) {
        guard let currentUser = AppState.shared.currentUser else { return }
         
+        // Populate Quests
         quests = apiService.getQuests(userId: currentUser.id)
         allQuestsButton.amount = quests.count
-        friends = apiService.getFriends(friendIds: currentUser.friendIds)
         
         var todayQuestCount = 0;
         for quest in quests {
@@ -44,11 +44,25 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 todayQuestCount += 1
             }
         }
-        
         todayQuestsButton.amount = todayQuestCount
+        
+        // Populate Friends
+        updateFriends()
+    }
+    
+    func updateFriends() {
+       guard let currentUser = AppState.shared.currentUser else { return }
+        friends = apiService.getFriends(friendIds: currentUser.friendIds)
+        friendsTableView.reloadData()
     }
     
     // MARK: - Events
+    
+    @IBAction func onAddFriendButtonPressed(_ sender: UIButton) {
+        let addFriendViewController = storyboard?.instantiateViewController(withIdentifier: "AddFriendViewController") as! AddFriendViewController
+        addFriendViewController.onAddDelegate = updateFriends
+        present(addFriendViewController, animated: true)
+    }
     
     @IBAction func onAllQuestsPressed(_ sender: ListButtonView) {
         let questsViewController = self.storyboard?.instantiateViewController(withIdentifier: "QuestsViewController") as! QuestsViewController
@@ -72,6 +86,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.navigationController?.pushViewController(questsViewController, animated: true)
     }
+    
+    // MARK: - TableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         friends.count

@@ -9,6 +9,8 @@ import UIKit
 
 class AddFriendViewController: UIViewController {
     
+    var onAddDelegate: (() -> Void)? = nil
+    
     @IBOutlet weak var addFriend: UIButton!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
@@ -38,18 +40,22 @@ class AddFriendViewController: UIViewController {
         var questFriend = User(firstName: firstNameTextField.text!, lastName: lastNameTextField.text!, phoneNumber: phoneNumberTextField.text!, friendIds: [])
         apiService.addUser(user: questFriend)
         apiService.addFriend(userId: AppState.shared.currentUser!.id, friendFullName: questFriend.fullName, friendPhoneNumber: questFriend.phoneNumber)
+        
+        self.dismiss(animated: true)
     }
     
 
 
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        if let onAddDelegate = onAddDelegate {
+            onAddDelegate()
+        }
+        super.dismiss(animated: flag)
     }
-    */
+
+     
+    
+    
 
 }

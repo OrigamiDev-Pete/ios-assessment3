@@ -11,7 +11,6 @@ protocol APIService {
     func login(phoneNumber: String) -> User? // Obviously not a viable login function but will do for mocking
     func getUser(userId: UUID) -> User?
     func getFriends(friendIds: [UUID]) -> [User]
-    func sendFriendRequest(userId: UUID, friendPhoneNumber: String)
     func addFriend(userId: UUID, friendFullName: String, friendPhoneNumber: String)
     func addUser(user: User)
     func getQuests(userId: UUID) -> [Quest]
@@ -56,6 +55,10 @@ class MockAPIService: APIService {
         self.users[userId]
     }
     
+    func addUser(user: User) {
+        self.users[user.id] = user
+    }
+    
     func getFriends(friendIds: [UUID]) -> [User] {
         var friends: [User] = []
         for id in friendIds {
@@ -66,10 +69,18 @@ class MockAPIService: APIService {
         return friends
     }
     
-    func sendFriendRequest(userId: UUID, friendPhoneNumber: String) {
+    func addFriend(userId: UUID, friendFullName: String, friendPhoneNumber: String) {
+        let currentUser = self.users[userId]
+        guard let currentUser = currentUser else { return }
         
+        for (_, user) in self.users {
+            if user.fullName == friendFullName && user.phoneNumber == friendPhoneNumber {
+                currentUser.friendIds.append(user.id)
+                return
+            }
+        }
     }
-    
+   
     func getQuests(userId: UUID) -> [Quest] {
         var foundQuests: [Quest] = []
         for (_, quest) in self.quests {
@@ -93,17 +104,5 @@ class MockAPIService: APIService {
     
     func deleteQuest(questId: UUID) {
         self.quests.removeValue(forKey: questId)
-    }
-    func addFriend(userId: UUID, friendFullName: String, friendPhoneNumber: String) {
-        let currentUser = self.users[userId]
-        for (_, user) in self.users {
-            if user.fullName == friendFullName && user.phoneNumber == friendPhoneNumber {
-                currentUser?.friendIds.append(user.id)
-                return
-            }
-        }
-    }
-    func addUser(user: User) {
-        self.users[user.id] = user
     }
 }

@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wKx-uD-ZsW">
-                                <rect key="frame" x="20" y="103" width="353" height="204.66666666666663"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wKx-uD-ZsW">
+                                <rect key="frame" x="20" y="102.99999999999999" width="353" height="204.66666666666663"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" My Quests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1p2-Tw-6Sq">
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="31.333333333333332"/>
@@ -27,7 +27,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="myu-IR-DEb" userLabel="All Quests Button" customClass="ListButtonView" customModule="Sidequest" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="myu-IR-DEb" userLabel="All Quests Button" customClass="ListButtonView" customModule="Sidequest" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="41.333333333333343" width="353" height="56"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
@@ -38,7 +38,7 @@
                                             <action selector="onAllQuestsPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uOQ-8m-Pv0"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rg1-Im-d5J" userLabel="Today Quests Button" customClass="ListButtonView" customModule="Sidequest" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rg1-Im-d5J" userLabel="Today Quests Button" customClass="ListButtonView" customModule="Sidequest" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="107.33333333333334" width="353" height="56"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
@@ -52,7 +52,7 @@
                                             <action selector="onTodayQuestsPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="23p-XH-VHC"/>
                                         </connections>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text=" My Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtg-bY-vKW">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" My Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtg-bY-vKW">
                                         <rect key="frame" x="0.0" y="173.33333333333331" width="353" height="31.333333333333343"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                         <nil key="textColor"/>
@@ -78,9 +78,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Add Friend"/>
                                         <connections>
-                                            <segue destination="AhM-1B-qqX" kind="popoverPresentation" popoverAnchorView="0HL-QH-zJw" id="CPX-mg-J8p">
-                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                            </segue>
+                                            <action selector="onAddFriendButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8Xl-bR-lOI"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -90,16 +88,15 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendCell" id="lyx-m4-kYx" userLabel="FriendCell" customClass="FriendTableCell">
-                                        <rect key="frame" x="0.0" y="50" width="353" height="43.666667938232422"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendCell" rowHeight="60" id="lyx-m4-kYx" userLabel="FriendCell" customClass="FriendTableCell" customModule="Sidequest" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="353" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lyx-m4-kYx" id="w0Q-VB-s74">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gRw-K3-xHd" userLabel="Today Quests Button" customClass="ListButtonView" customModule="Sidequest" customModuleProvider="target">
-                                                    <rect key="frame" x="9" y="-13" width="353" height="56"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gRw-K3-xHd" userLabel="Today Quests Button" customClass="ListButtonView" customModule="Sidequest" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="2" width="353" height="56"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="title" value="Today"/>
@@ -113,12 +110,22 @@
                                                     </connections>
                                                 </view>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="gRw-K3-xHd" secondAttribute="bottom" constant="2" id="Rue-C3-gbq"/>
+                                                <constraint firstAttribute="trailing" secondItem="gRw-K3-xHd" secondAttribute="trailing" id="Vzs-sd-S92"/>
+                                                <constraint firstItem="gRw-K3-xHd" firstAttribute="top" secondItem="w0Q-VB-s74" secondAttribute="top" constant="2" id="bhj-U1-wVn"/>
+                                                <constraint firstItem="gRw-K3-xHd" firstAttribute="leading" secondItem="w0Q-VB-s74" secondAttribute="leading" id="cOZ-6Z-1jg"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="friendListButton" destination="gRw-K3-xHd" id="kjD-nN-ZDX"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="afe-mO-IET"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="mbk-wI-o0L"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -135,6 +142,7 @@
                     <navigationItem key="navigationItem" id="K1x-iQ-bde"/>
                     <connections>
                         <outlet property="allQuestsButton" destination="myu-IR-DEb" id="Cf4-yo-ozd"/>
+                        <outlet property="friendsTableView" destination="qYm-RN-9nm" id="bsP-TP-b2D"/>
                         <outlet property="todayQuestsButton" destination="Rg1-Im-d5J" id="0Bf-CQ-Cir"/>
                     </connections>
                 </viewController>
@@ -173,9 +181,9 @@
         <!--Add Friend View Controller-->
         <scene sceneID="3VP-7t-f8m">
             <objects>
-                <viewController id="AhM-1B-qqX" customClass="AddFriendViewController" customModule="Sidequest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddFriendViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AhM-1B-qqX" customClass="AddFriendViewController" customModule="Sidequest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fLZ-mc-Rjn">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c7f-L9-2Qa">
@@ -195,7 +203,7 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Add Friend" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xea-NQ-KHb">
-                                <rect key="frame" x="16" y="38" width="163" height="39"/>
+                                <rect key="frame" x="16" y="97" width="163" height="39"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
                                 <color key="textColor" name="AccentColor"/>
                                 <nil key="highlightedColor"/>
@@ -215,7 +223,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="My4-y1-2xl">
-                                <rect key="frame" x="25.666666666666657" y="309" width="342" height="34"/>
+                                <rect key="frame" x="25.666666666666657" y="368" width="342" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <connections>
