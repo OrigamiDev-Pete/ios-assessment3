@@ -68,5 +68,9 @@ class HomeViewController: UIViewController {
         self.navigationController?.pushViewController(questsViewController, animated: true)
     }
     
+    
+    @IBAction func addFriendPressed(_ sender: UIButton) {
+    }
+    
 }
 
