@@ -7,20 +7,24 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var apiService: APIService!
     
+    var friends: [User] = []
     var quests: [Quest] = []
     @IBOutlet weak var allQuestsButton: ListButtonView!
     @IBOutlet weak var todayQuestsButton: ListButtonView!
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Get the APIService
         apiService = (UIApplication.shared.delegate as? AppDelegate)?.apiService
         
-        if let currentUser = apiService.login(phoneNumber: "000") {
+        if let currentUser = apiService.login(phoneNumber: "111") {
             AppState.shared.currentUser = currentUser
         } else {
             fatalError("User not found.")
@@ -32,6 +36,7 @@ class HomeViewController: UIViewController {
         
         quests = apiService.getQuests(userId: currentUser.id)
         allQuestsButton.amount = quests.count
+        friends = apiService.getFriends(friendIds: currentUser.friendIds)
         
         var todayQuestCount = 0;
         for quest in quests {
@@ -68,9 +73,19 @@ class HomeViewController: UIViewController {
         self.navigationController?.pushViewController(questsViewController, animated: true)
     }
     
-    
-    @IBAction func addFriendPressed(_ sender: UIButton) {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        friends.count
     }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendTableCell
+        
+        
+        cell.friendListButton.title = friends[indexPath.row].fullName
+        return cell
+    }
+        
+
     
 }
 

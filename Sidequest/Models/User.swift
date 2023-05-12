@@ -11,7 +11,7 @@ class User: Identifiable {
     let id: UUID
     let firstName: String
     let lastName: String
-    var fullname: String {
+    var fullName: String {
         get {
             "\(firstName) \(lastName)"
         }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6CFD128A2A0DE8B000483717 /* FriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFD12892A0DE8B000483717 /* FriendView.swift */; };
+		6CFD128C2A0DEDAE00483717 /* FriendTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFD128B2A0DEDAE00483717 /* FriendTableCell.swift */; };
 		D04FC8BC2A05D62F00050186 /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8BB2A05D62F00050186 /* Quest.swift */; };
 		D04FC8BE2A05D86000050186 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8BD2A05D86000050186 /* User.swift */; };
 		D04FC8C02A05DBFC00050186 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8BF2A05DBFC00050186 /* APIService.swift */; };
@@ -28,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6CFD12892A0DE8B000483717 /* FriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendView.swift; sourceTree = "<group>"; };
+		6CFD128B2A0DEDAE00483717 /* FriendTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableCell.swift; sourceTree = "<group>"; };
 		D04FC8BB2A05D62F00050186 /* Quest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = "<group>"; };
 		D04FC8BD2A05D86000050186 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D04FC8BF2A05DBFC00050186 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -94,9 +98,11 @@
 			isa = PBXGroup;
 			children = (
 				D04FC8F32A0619DD00050186 /* QuestTableCell.swift */,
+				6CFD128B2A0DEDAE00483717 /* FriendTableCell.swift */,
 				D04FC8F72A06282C00050186 /* RoundedView.swift */,
 				D04FC8FB2A06364200050186 /* ListButtonView.xib */,
 				D04FC8FD2A0636E000050186 /* ListButtonView.swift */,
+				6CFD12892A0DE8B000483717 /* FriendView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -207,6 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CFD128C2A0DEDAE00483717 /* FriendTableCell.swift in Sources */,
 				D04FC8EF2A05FE1700050186 /* AddFriendViewController.swift in Sources */,
 				D04FC8BC2A05D62F00050186 /* Quest.swift in Sources */,
 				D04FC8E72A05FD8400050186 /* QuestsViewController.swift in Sources */,
@@ -220,6 +227,7 @@
 				D04FC8BE2A05D86000050186 /* User.swift in Sources */,
 				D04FC8EB2A05FDFF00050186 /* NewQuestViewController.swift in Sources */,
 				D04FC8C02A05DBFC00050186 /* APIService.swift in Sources */,
+				6CFD128A2A0DE8B000483717 /* FriendView.swift in Sources */,
 				D0FEAFC62A049A59003E6738 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

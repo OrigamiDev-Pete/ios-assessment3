@@ -8,7 +8,11 @@
 import UIKit
 
 class AddFriendViewController: UIViewController {
-
+    
+    @IBOutlet weak var addFriend: UIButton!
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var phoneNumberTextField: UITextField!
     var apiService: APIService!
     
     override func viewDidLoad() {
@@ -17,6 +21,26 @@ class AddFriendViewController: UIViewController {
         apiService = (UIApplication.shared.delegate as? AppDelegate)?.apiService
     }
     
+    
+    @IBAction func firstNameFriend(_ sender: UITextField) {
+    }
+    
+    @IBAction func lastNameFriend(_ sender: UITextField) {
+    }
+    
+    @IBAction func phoneNumberFriend(_ sender: UITextField) {
+        addFriend.isEnabled = sender.text != ""
+    }
+    
+    
+    @IBAction func addFriendPressed(_ sender: UIButton) {
+        
+        var questFriend = User(firstName: firstNameTextField.text!, lastName: lastNameTextField.text!, phoneNumber: phoneNumberTextField.text!, friendIds: [])
+        apiService.addUser(user: questFriend)
+        apiService.addFriend(userId: AppState.shared.currentUser!.id, friendFullName: questFriend.fullName, friendPhoneNumber: questFriend.phoneNumber)
+    }
+    
+
 
     /*
     // MARK: - Navigation

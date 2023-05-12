@@ -12,6 +12,7 @@ import UIKit
     @IBOutlet weak var header: RoundedView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var profile: UIImageView!
     
     override init (frame: CGRect) {
         super.init(frame: frame)
@@ -22,6 +23,15 @@ import UIKit
         super.init(coder: coder)
         configureView()
     }
+    
+    @IBInspectable var placeholderProfile:
+    Bool = false
+    {
+        didSet {
+            profile.isHidden = !placeholderProfile
+        }
+    }
+    
     
     @IBInspectable var headerColour: UIColor = UIColor.systemYellow {
         didSet {

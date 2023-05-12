@@ -12,10 +12,12 @@ protocol APIService {
     func getUser(userId: UUID) -> User?
     func getFriends(friendIds: [UUID]) -> [User]
     func sendFriendRequest(userId: UUID, friendPhoneNumber: String)
-    
+    func addFriend(userId: UUID, friendFullName: String, friendPhoneNumber: String)
+    func addUser(user: User)
     func getQuests(userId: UUID) -> [Quest]
     func getQuest(questId: UUID) -> Quest?
     func deleteQuest(questId: UUID)
+    
 }
 
 class MockAPIService: APIService {
@@ -26,7 +28,7 @@ class MockAPIService: APIService {
         // Populate mock data
         let user0 = User(firstName: "John", lastName: "Smith", phoneNumber: "000", friendIds: [])
         self.users[user0.id] = user0
-        let user1 = User(firstName: "Karen", lastName: "Jones", phoneNumber: "111", friendIds: [])
+        let user1 = User(firstName: "Karen", lastName: "Jones", phoneNumber: "111", friendIds: [user0.id])
         self.users[user1.id] = user1
         let user2 = User(firstName: "John", lastName: "Denver", phoneNumber: "222", friendIds: [])
         self.users[user2.id] = user2
@@ -91,5 +93,17 @@ class MockAPIService: APIService {
     
     func deleteQuest(questId: UUID) {
         self.quests.removeValue(forKey: questId)
+    }
+    func addFriend(userId: UUID, friendFullName: String, friendPhoneNumber: String) {
+        let currentUser = self.users[userId]
+        for (_, user) in self.users {
+            if user.fullName == friendFullName && user.phoneNumber == friendPhoneNumber {
+                currentUser?.friendIds.append(user.id)
+                return
+            }
+        }
+    }
+    func addUser(user: User) {
+        self.users[user.id] = user
     }
 }
