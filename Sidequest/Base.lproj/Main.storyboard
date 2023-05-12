@@ -175,20 +175,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Quest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LbI-2f-Swy">
-                                <rect key="frame" x="151" y="20" width="84.333333333333314" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IkI-6z-fJF">
+                                <rect key="frame" x="160" y="324" width="118" height="62"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" systemColor="systemGreenColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="TEST">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="40"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EGE-xl-HNa"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="LbI-2f-Swy" firstAttribute="top" secondItem="EGE-xl-HNa" secondAttribute="top" constant="20" id="449-2i-U5f"/>
-                            <constraint firstItem="EGE-xl-HNa" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LbI-2f-Swy" secondAttribute="trailing" symbolic="YES" id="KUL-xy-pYf"/>
-                            <constraint firstItem="LbI-2f-Swy" firstAttribute="leading" secondItem="EGE-xl-HNa" secondAttribute="leading" constant="151" id="LU6-7Q-fM4"/>
-                        </constraints>
                     </view>
                     <size key="freeformSize" width="393" height="852"/>
                 </viewController>
