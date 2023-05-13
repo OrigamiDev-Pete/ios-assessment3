@@ -32,9 +32,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewWillAppear(_ animated: Bool) {
-       guard let currentUser = AppState.shared.currentUser else { return }
-        
         // Populate Quests
+        reloadQuests()
+        
+        // Populate Friends
+        updateFriends()
+    }
+    
+    func reloadQuests() {
+       guard let currentUser = AppState.shared.currentUser else { return }
         quests = apiService.getQuests(userId: currentUser.id)
         allQuestsButton.amount = quests.count
         
@@ -45,9 +51,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         todayQuestsButton.amount = todayQuestCount
-        
-        // Populate Friends
-        updateFriends()
     }
     
     func updateFriends() {
@@ -58,11 +61,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - Events
     
-    @IBAction func onAddFriendButtonPressed(_ sender: UIButton) {
-        let addFriendViewController = storyboard?.instantiateViewController(withIdentifier: "AddFriendViewController") as! AddFriendViewController
-        addFriendViewController.onAddDelegate = updateFriends
-        present(addFriendViewController, animated: true)
-    }
+//    @IBAction func onAddFriendButtonPressed(_ sender: UIButton) {
+//        let addFriendViewController = storyboard?.instantiateViewController(withIdentifier: "AddFriendViewController") as! AddFriendViewController
+//        addFriendViewController.onAddDelegate = updateFriends
+//        present(addFriendViewController, animated: true)
+//    }
     
     @IBAction func onAllQuestsPressed(_ sender: ListButtonView) {
         let questsViewController = self.storyboard?.instantiateViewController(withIdentifier: "QuestsViewController") as! QuestsViewController
@@ -100,8 +103,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.friendListButton.title = friends[indexPath.row].fullName
         return cell
     }
-        
-
     
+    // MARK: Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let newQuestViewController = segue.destination as? NewQuestViewController {
+            newQuestViewController.onQuestAddedDelegate = reloadQuests
+        }
+        
+        if let addFriendViewController = segue.destination as? AddFriendViewController {
+            addFriendViewController.onAddDelegate = updateFriends
+        }
+    }
 }
 

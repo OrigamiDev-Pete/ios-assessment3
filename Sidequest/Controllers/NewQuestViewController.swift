@@ -9,46 +9,22 @@ import UIKit
 
 class NewQuestViewController: UIViewController {
 
+    var onQuestAddedDelegate: () -> Void = {}
+    
     var apiService: APIService!
     
-    
-    @IBOutlet weak var contentTextField: UITextView!
-    
     @IBOutlet weak var titleTextField: UITextField!
-    
-    @IBAction func cancelQuest(_ sender: AnyObject) {
-        dismiss(animated: true, completion: nil)
-    }
-    @IBAction func addQuest(_ sender: AnyObject) {
-        dismiss(animated: true)
-        
-    }
-    
-    @IBOutlet weak var addFriendsListButton: UIButton!
-    
-    
+    @IBOutlet weak var contentTextField: UITextView!
     @IBOutlet weak var questCompletionDatePicker: UIDatePicker!
+    @IBOutlet weak var selectedFriendLabel: UILabel!
     
+    var selectedFriend: User? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Get the APIService
         apiService = (UIApplication.shared.delegate as? AppDelegate)?.apiService
         
-        addFriendsListButton.showsMenuAsPrimaryAction  = true
-        addFriendsListButton.changesSelectionAsPrimaryAction = true
-        
-        let optionClosure = {(action: UIAction) in
-            if ((action.index(ofAccessibilityElement: (Any).self)) != 0){}
-        }
-        
-        addFriendsListButton.menu = UIMenu(children: [
-            UIAction(title: "Add Friend", state: .on, handler: optionClosure),
-            UIAction(title: "User 0", handler: optionClosure), //Users need to be pulled from API
-            UIAction(title: "User 1", handler: optionClosure),
-            UIAction(title: "User 2", handler: optionClosure)
-        ])
-
         contentTextField.layer.borderColor = UIColor.lightGray.cgColor
         contentTextField.layer.borderWidth = 1
         contentTextField.layer.cornerRadius = 10.0
@@ -56,19 +32,45 @@ class NewQuestViewController: UIViewController {
         titleTextField.borderStyle = UITextField.BorderStyle.roundedRect
         
         questCompletionDatePicker.minimumDate = Date.now
+    }
+    
+    private func showValidationAlert(_ message: String) {
+        let alert = UIAlertController(title: "One sec!", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
+    }
+    
+    // MARK: Events
+    @IBAction func cancelQuest(_ sender: AnyObject) {
+        dismiss(animated: true)
+    }
+    
+    @IBAction func addQuest(_ sender: AnyObject) {
+        // Validate inputs
+        if (titleTextField.text == nil || titleTextField.text!.isEmpty) {
+            showValidationAlert("Please enter a Quest Title.")
+            return
+        }
         
+        guard let currentUser = AppState.shared.currentUser else { return }
+        
+        let newQuest = Quest(title: titleTextField.text!, content: contentTextField.text, authorId: currentUser.id, assigned: [], endTime: questCompletionDatePicker.date)
+        if let selectedFriend = selectedFriend {
+            newQuest.assigned.append(selectedFriend.id)
+        }
+        
+        apiService.addQuest(newQuest)
+        onQuestAddedDelegate()
+        
+        dismiss(animated: true)
     }
     
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let selectFriendViewController = segue.destination as? QuestDetailsViewController {
+            selectFriendViewController.onFriendSelectDelegate = { (user: User) -> Void in
+                self.selectedFriend = user
+                self.selectedFriendLabel.text = user.fullName
+            }
+        }
     }
-    */
-
 }

@@ -12,11 +12,11 @@ protocol APIService {
     func getUser(userId: UUID) -> User?
     func getFriends(friendIds: [UUID]) -> [User]
     func addFriend(userId: UUID, friendFullName: String, friendPhoneNumber: String)
-    func addUser(user: User)
+    func addUser(_ user: User)
     func getQuests(userId: UUID) -> [Quest]
     func getQuest(questId: UUID) -> Quest?
+    func addQuest(_ quest: Quest)
     func deleteQuest(questId: UUID)
-    
 }
 
 class MockAPIService: APIService {
@@ -55,7 +55,7 @@ class MockAPIService: APIService {
         self.users[userId]
     }
     
-    func addUser(user: User) {
+    func addUser(_ user: User) {
         self.users[user.id] = user
     }
     
@@ -100,6 +100,10 @@ class MockAPIService: APIService {
     
     func getQuest(questId: UUID) -> Quest? {
         self.quests[questId]
+    }
+    
+    func addQuest(_ quest: Quest) {
+        self.quests[quest.id] = quest
     }
     
     func deleteQuest(questId: UUID) {

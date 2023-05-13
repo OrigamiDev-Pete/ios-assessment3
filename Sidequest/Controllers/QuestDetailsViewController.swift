@@ -7,14 +7,43 @@
 
 import UIKit
 
-class QuestDetailsViewController: UIViewController {
-
+class QuestDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    var onFriendSelectDelegate: ((User) -> Void)? = nil
+    
     var apiService: APIService!
+    var friends: [User] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Get the APIService
         apiService = (UIApplication.shared.delegate as? AppDelegate)?.apiService
+        
+        guard let currentUser = AppState.shared.currentUser else { return }
+        friends = apiService.getFriends(friendIds: currentUser.friendIds)
+        print(friends)
+    }
+    
+    // MARK: Table
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        friends.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FriendNameCell", for: indexPath)
+        
+        var contentConfiguration = UIListContentConfiguration.cell()
+        contentConfiguration.text = friends[indexPath.row].fullName
+        cell.contentConfiguration = contentConfiguration
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let onFriendSelectDelegate = onFriendSelectDelegate {
+            onFriendSelectDelegate(friends[indexPath.row])
+        }
+        dismiss(animated: true)
     }
     
 

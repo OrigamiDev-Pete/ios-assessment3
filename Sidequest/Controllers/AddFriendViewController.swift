@@ -9,7 +9,7 @@ import UIKit
 
 class AddFriendViewController: UIViewController {
     
-    var onAddDelegate: (() -> Void)? = nil
+    var onAddDelegate: () -> Void = {}
     
     @IBOutlet weak var addFriend: UIButton!
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -38,19 +38,15 @@ class AddFriendViewController: UIViewController {
     @IBAction func addFriendPressed(_ sender: UIButton) {
         
         var questFriend = User(firstName: firstNameTextField.text!, lastName: lastNameTextField.text!, phoneNumber: phoneNumberTextField.text!, friendIds: [])
-        apiService.addUser(user: questFriend)
+        apiService.addUser(questFriend)
         apiService.addFriend(userId: AppState.shared.currentUser!.id, friendFullName: questFriend.fullName, friendPhoneNumber: questFriend.phoneNumber)
         
         self.dismiss(animated: true)
     }
     
-
-
     // MARK: - Navigation
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        if let onAddDelegate = onAddDelegate {
-            onAddDelegate()
-        }
+        onAddDelegate()
         super.dismiss(animated: flag)
     }
 
