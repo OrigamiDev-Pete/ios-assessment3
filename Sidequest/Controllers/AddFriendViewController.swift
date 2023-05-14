@@ -25,13 +25,15 @@ class AddFriendViewController: UIViewController {
     
     
     @IBAction func firstNameFriend(_ sender: UITextField) {
+        addFriend.isEnabled = sender.text != "" && lastNameTextField.text != "" && phoneNumberTextField.text != ""
     }
     
     @IBAction func lastNameFriend(_ sender: UITextField) {
+        addFriend.isEnabled = sender.text != "" && firstNameTextField.text != "" && phoneNumberTextField.text != ""
     }
     
     @IBAction func phoneNumberFriend(_ sender: UITextField) {
-        addFriend.isEnabled = sender.text != ""
+        addFriend.isEnabled = sender.text != "" && firstNameTextField.text != "" && lastNameTextField.text != ""
     }
     
     

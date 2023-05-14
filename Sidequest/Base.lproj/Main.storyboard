@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wKx-uD-ZsW">
-                                <rect key="frame" x="20" y="103" width="353" height="204.66666666666663"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wKx-uD-ZsW">
+                                <rect key="frame" x="20" y="102.99999999999999" width="353" height="204.66666666666663"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" My Quests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1p2-Tw-6Sq">
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="31.333333333333332"/>
@@ -26,7 +26,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="myu-IR-DEb" userLabel="All Quests Button" customClass="ListButtonView" customModule="Sidequest" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="myu-IR-DEb" userLabel="All Quests Button" customClass="ListButtonView" customModule="Sidequest" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="41.333333333333343" width="353" height="56"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
@@ -37,9 +37,12 @@
                                             <action selector="onAllQuestsPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uOQ-8m-Pv0"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rg1-Im-d5J" userLabel="Today Quests Button" customClass="ListButtonView" customModule="Sidequest" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rg1-Im-d5J" userLabel="Today Quests Button" customClass="ListButtonView" customModule="Sidequest" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="107.33333333333334" width="353" height="56"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="56" id="XP4-qz-idr"/>
+                                        </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Today"/>
                                             <userDefinedRuntimeAttribute type="color" keyPath="headerColour">
@@ -51,13 +54,16 @@
                                             <action selector="onTodayQuestsPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="23p-XH-VHC"/>
                                         </connections>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text=" My Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtg-bY-vKW">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" My Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtg-bY-vKW">
                                         <rect key="frame" x="0.0" y="173.33333333333331" width="353" height="31.333333333333343"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="204.66999999999999" id="ix8-yb-6DC"/>
+                                </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="CAl-as-t14">
                                 <rect key="frame" x="10" y="759" width="373" height="34.333333333333371"/>
@@ -82,9 +88,8 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="qYm-RN-9nm">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="qYm-RN-9nm">
                                 <rect key="frame" x="20" y="315" width="353" height="423"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendCell" rowHeight="60" id="lyx-m4-kYx" userLabel="FriendCell" customClass="FriendTableCell" customModule="Sidequest" customModuleProvider="target">
@@ -105,7 +110,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
-                                                        <action selector="onTodayQuestsPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OJc-1W-aKC"/>
+                                                        <action selector="onFriendPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zhb-iE-eiJ"/>
                                                     </connections>
                                                 </view>
                                             </subviews>
@@ -119,7 +124,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="friendListButton" destination="gRw-K3-xHd" id="kjD-nN-ZDX"/>
+                                            <outlet property="friendListButton" destination="gRw-K3-xHd" id="Jtf-Hl-vHM"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -132,10 +137,15 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qYm-RN-9nm" secondAttribute="trailing" constant="20" id="6sA-Hq-X1S"/>
                             <constraint firstItem="wKx-uD-ZsW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="7NF-6f-sq7"/>
+                            <constraint firstItem="CAl-as-t14" firstAttribute="top" secondItem="qYm-RN-9nm" secondAttribute="bottom" constant="21" id="7Ub-ee-vN7"/>
                             <constraint firstItem="wKx-uD-ZsW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="8xg-6b-gz9"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wKx-uD-ZsW" secondAttribute="trailing" constant="20" id="9aZ-5a-I7U"/>
+                            <constraint firstItem="wKx-uD-ZsW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="NpE-AZ-iyB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CAl-as-t14" secondAttribute="trailing" constant="10" id="XL5-NT-iiB"/>
+                            <constraint firstItem="qYm-RN-9nm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="lhO-su-ZEq"/>
+                            <constraint firstItem="qYm-RN-9nm" firstAttribute="top" secondItem="wKx-uD-ZsW" secondAttribute="bottom" constant="7.3333333333333712" id="p8Q-du-BpV"/>
                             <constraint firstItem="CAl-as-t14" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="rWa-bC-eMJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CAl-as-t14" secondAttribute="bottom" constant="24.666666666666629" id="sLe-zh-zGm"/>
                         </constraints>
@@ -148,16 +158,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="pCl-Xx-c13">
-                    <connections>
-                        <action selector="onAllQuestsPressed:" destination="BYZ-38-t0r" id="Sg2-ul-Eos"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="Ho2-fd-HdR">
-                    <connections>
-                        <action selector="onTodayQuestsPressed:" destination="BYZ-38-t0r" id="XZY-Lb-2K1"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="979.38931297709917" y="3.5211267605633805"/>
         </scene>
@@ -192,7 +192,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="firstNameFriend:" destination="AhM-1B-qqX" eventType="editingDidEnd" id="YIl-5q-dhv"/>
+                                    <action selector="firstNameFriend:" destination="AhM-1B-qqX" eventType="editingChanged" id="1sl-oC-tQd"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4xL-Ld-oPI">
@@ -200,7 +200,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="lastNameFriend:" destination="AhM-1B-qqX" eventType="editingDidEnd" id="b7O-fa-AWO"/>
+                                    <action selector="lastNameFriend:" destination="AhM-1B-qqX" eventType="editingChanged" id="bBx-ir-Aj6"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Friend" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xea-NQ-KHb">

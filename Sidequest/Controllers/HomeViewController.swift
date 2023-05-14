@@ -20,7 +20,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        definesPresentationContext = false
         // Get the APIService
         apiService = (UIApplication.shared.delegate as? AppDelegate)?.apiService
         
@@ -51,6 +50,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         todayQuestsButton.amount = todayQuestCount
+        friendsTableView.reloadData()
     }
     
     func updateFriends() {
@@ -59,13 +59,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         friendsTableView.reloadData()
     }
     
-    // MARK: - Events
+    private func getSharedQuests(friend: User) -> [Quest] {
+        guard let currentUser = AppState.shared.currentUser else { return [] }
+                
+        var sharedQuest: [Quest] = []
+        for quest in quests {
+            if quest.authorId == friend.id ||
+                quest.assigned.contains(currentUser.id) ||
+                quest.assigned.contains(friend.id) {
+                sharedQuest.append(quest)
+            }
+        }
+        return sharedQuest
+    }
     
-//    @IBAction func onAddFriendButtonPressed(_ sender: UIButton) {
-//        let addFriendViewController = storyboard?.instantiateViewController(withIdentifier: "AddFriendViewController") as! AddFriendViewController
-//        addFriendViewController.onAddDelegate = updateFriends
-//        present(addFriendViewController, animated: true)
-//    }
+    // MARK: - Events
     
     @IBAction func onAllQuestsPressed(_ sender: ListButtonView) {
         let questsViewController = self.storyboard?.instantiateViewController(withIdentifier: "QuestsViewController") as! QuestsViewController
@@ -90,6 +98,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.pushViewController(questsViewController, animated: true)
     }
     
+    @IBAction func onFriendPressed(_ sender: ListButtonView) {
+        // Work out which friend was pressed. Note: We're not using a tableView delegate here because the button is consuming the input before the table can get it.
+        let buttonPosition = sender.convert(CGPoint.zero, to: friendsTableView)
+        let index = friendsTableView.indexPathForRow(at: buttonPosition)
+        guard let index = index else { return }
+        
+        let questsViewController = self.storyboard?.instantiateViewController(withIdentifier: "QuestsViewController") as! QuestsViewController
+        
+        let friend = friends[index.row]
+        questsViewController.quests = getSharedQuests(friend: friend)
+        questsViewController.heading = friend.fullName
+        
+        navigationController?.pushViewController(questsViewController, animated: true)
+    }
+    
     // MARK: - TableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -99,8 +122,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendTableCell
         
+        let friend = friends[indexPath.row]
+        cell.friendListButton.title = friend.fullName
+        cell.friendListButton.amount = getSharedQuests(friend: friend).count
         
-        cell.friendListButton.title = friends[indexPath.row].fullName
         return cell
     }
     

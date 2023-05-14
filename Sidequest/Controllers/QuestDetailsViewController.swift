@@ -21,7 +21,6 @@ class QuestDetailsViewController: UIViewController, UITableViewDelegate, UITable
         
         guard let currentUser = AppState.shared.currentUser else { return }
         friends = apiService.getFriends(friendIds: currentUser.friendIds)
-        print(friends)
     }
     
     // MARK: Table
