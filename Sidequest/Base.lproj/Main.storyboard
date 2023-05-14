@@ -545,7 +545,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rLB-BQ-gW0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="c5v-T9-U6C">
                     <connections>
-                        <action selector="test:" destination="88j-yM-Gey" id="ZzB-AY-4du"/>
+                        <action selector="toggleEditMode:" destination="88j-yM-Gey" id="spM-oT-aef"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -614,7 +614,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mwX-hg-3Kt"/>
+        <segue reference="WBp-IW-oOA"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="pencil" catalog="system" width="128" height="113"/>

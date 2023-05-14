@@ -60,8 +60,7 @@ class QuestsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // MARK: - Events
     
-    @IBAction func test(_ sender: UITapGestureRecognizer) {
-        
+    @IBAction func toggleEditMode(_ sender: UITapGestureRecognizer) {
         if !tableView.isEditing {
             editButton.image = UIImage.init(systemName: "checkmark")
         } else {
