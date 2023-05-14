@@ -16,6 +16,7 @@ protocol APIService {
     func getQuests(userId: UUID) -> [Quest]
     func getQuest(questId: UUID) -> Quest?
     func addQuest(_ quest: Quest)
+    func updateQuest(_ quest: Quest)
     func deleteQuest(questId: UUID)
 }
 
@@ -32,13 +33,11 @@ class MockAPIService: APIService {
         let user2 = User(firstName: "John", lastName: "Denver", phoneNumber: "222", friendIds: [])
         self.users[user2.id] = user2
         
-        let quest0 = Quest(title: "Mock Quest", content: "Make a snow man. Your time starts now.", authorId: user0.id, assigned: [], endTime: Date.now)
-        quest0.status = .complete
+        let quest0 = Quest(title: "Mock Quest", content: "Make a snow man. Your time starts now.", authorId: user0.id, assigned: [], completedBy: user0.id, endTime: Date.now)
         self.quests[quest0.id] = quest0
-        let quest1 = Quest(title: "Mock Quest 2", content: "Do 10,000 steps.", authorId: user0.id, assigned: [], endTime: Date.now)
-        quest1.status = .overdue
+        let quest1 = Quest(title: "Mock Quest 2", content: "Do 10,000 steps.", authorId: user0.id, assigned: [], completedBy: nil, endTime: Date.now)
         self.quests[quest1.id] = quest1
-        let quest2 = Quest(title: "Mock Quest 3", content: "Finish Assessment 3", authorId: user1.id, assigned: [user0.id], endTime: Calendar.current.date(byAdding: .day, value: 1, to: Date.now)!)
+        let quest2 = Quest(title: "Mock Quest 3", content: "Finish Assessment 3", authorId: user1.id, assigned: [user0.id], completedBy: nil, endTime: Calendar.current.date(byAdding: .day, value: 1, to: Date.now)!)
         self.quests[quest2.id] = quest2
     }
     
@@ -103,6 +102,10 @@ class MockAPIService: APIService {
     }
     
     func addQuest(_ quest: Quest) {
+        self.quests[quest.id] = quest
+    }
+    
+    func updateQuest(_ quest: Quest) {
         self.quests[quest.id] = quest
     }
     

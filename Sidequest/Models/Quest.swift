@@ -10,14 +10,14 @@ import UIKit
 
 class Quest: Identifiable {
     let id: UUID
-    let title: String
-    let content: String
-    var status: QuestStatus = .active
+    var title: String
+    var content: String
     let authorId: UUID
     var assigned: [UUID]
-    let endTime: Date
+    var compeletedBy: UUID? = nil
+    var endTime: Date
     
-    init(title: String, content: String, authorId: UUID, assigned: [UUID], endTime: Date) {
+    init(title: String, content: String, authorId: UUID, assigned: [UUID], completedBy: UUID?, endTime: Date) {
         self.id = UUID()
         self.title = title
         self.content = content
@@ -25,12 +25,28 @@ class Quest: Identifiable {
         self.assigned = assigned
         self.endTime = endTime
     }
-   
+    
+    func getStatus(fromUserPerspective user: User) -> (QuestStatus) {
+        if compeletedBy == nil && endTime < Date.now {
+            return .overdue
+        }
+        
+        if let compeletedBy = compeletedBy {
+            if compeletedBy == user.id {
+                return .complete
+            } else {
+                return .lost
+            }
+        }
+        
+        return .active
+    }
 }
 
 enum QuestStatus {
     case active
     case complete
+    case lost
     case overdue
     
     func getStatusUIDetails() -> (UIColor, String) {
@@ -39,8 +55,10 @@ enum QuestStatus {
             return (UIColor.systemGreen, "Active")
         case .complete:
             return (UIColor.systemBlue, "Complete")
+        case .lost:
+            return (UIColor.systemRed, "Lost")
         case .overdue:
-            return (UIColor.systemRed, "Failed")
+            return (UIColor.systemRed, "Overdue")
         }
         
     }

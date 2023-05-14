@@ -132,7 +132,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let newQuestViewController = segue.destination as? NewQuestViewController {
-            newQuestViewController.onQuestAddedDelegate = reloadQuests
+            newQuestViewController.onModalCompleteDelegate = reloadQuests
         }
         
         if let addFriendViewController = segue.destination as? AddFriendViewController {

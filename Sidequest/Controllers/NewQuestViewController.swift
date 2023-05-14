@@ -9,16 +9,21 @@ import UIKit
 
 class NewQuestViewController: UIViewController {
 
-    var onQuestAddedDelegate: () -> Void = {}
+    var onModalCompleteDelegate: () -> Void = {}
     
     var apiService: APIService!
     
+    @IBOutlet weak var addQuestButton: UIBarButtonItem!
+    @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentTextField: UITextView!
     @IBOutlet weak var questCompletionDatePicker: UIDatePicker!
     @IBOutlet weak var selectedFriendLabel: UILabel!
+    @IBOutlet weak var completeButton: UIButton!
+    @IBOutlet weak var updateQuestButton: UIButton!
     
     var selectedFriend: User? = nil
+    var quest: Quest? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +37,32 @@ class NewQuestViewController: UIViewController {
         titleTextField.borderStyle = UITextField.BorderStyle.roundedRect
         
         questCompletionDatePicker.minimumDate = Date.now
+        
+        // Editing a quest
+        guard let currentUser = AppState.shared.currentUser else { return }
+        if let quest = quest {
+            navItem.title = "Edit Quest"
+            navItem.rightBarButtonItem?.isHidden = true
+            
+            // Only allow editing of quest if status is active or overdue
+            let questStatus = quest.getStatus(fromUserPerspective: currentUser)
+            if questStatus == .active || questStatus == .overdue {
+                updateQuestButton.isHidden = false
+            }
+            
+            // Only allow completing on active quests
+            if quest.compeletedBy == nil && questStatus == .active {
+                completeButton.isHidden = false
+            }
+            
+            titleTextField.text = quest.title
+            contentTextField.text = quest.content
+            questCompletionDatePicker.date = quest.endTime
+            if quest.assigned.count > 0 {
+                selectedFriend = apiService.getUser(userId: quest.assigned[0])
+                selectedFriendLabel.text = selectedFriend?.fullName
+            }
+        }
     }
     
     private func showValidationAlert(_ message: String) {
@@ -54,14 +85,42 @@ class NewQuestViewController: UIViewController {
         
         guard let currentUser = AppState.shared.currentUser else { return }
         
-        let newQuest = Quest(title: titleTextField.text!, content: contentTextField.text, authorId: currentUser.id, assigned: [], endTime: questCompletionDatePicker.date)
+        let newQuest = Quest(title: titleTextField.text!, content: contentTextField.text, authorId: currentUser.id, assigned: [], completedBy: nil, endTime: questCompletionDatePicker.date)
         if let selectedFriend = selectedFriend {
             newQuest.assigned.append(selectedFriend.id)
         }
         
         apiService.addQuest(newQuest)
-        onQuestAddedDelegate()
         
+        onModalCompleteDelegate()
+        dismiss(animated: true)
+    }
+    
+    @IBAction func onCompletePressed(_ sender: UIButton) {
+        guard let currentUser = AppState.shared.currentUser else { return }
+        // Quest should be not nil to reach here
+        quest!.compeletedBy = currentUser.id
+        
+        apiService.updateQuest(quest!)
+        
+        onModalCompleteDelegate()
+        dismiss(animated: true)
+        
+    }
+    
+    @IBAction func onUpdateQuestPressed(_ sender: UIButton) {
+        // Quest should be not nil to reach here
+        quest!.title = titleTextField.text ?? ""
+        quest!.content = contentTextField.text
+        quest!.endTime = questCompletionDatePicker.date
+        quest!.assigned = []
+        if let selectedFriend = selectedFriend {
+            quest!.assigned.append(selectedFriend.id)
+        }
+        
+        apiService.updateQuest(quest!)
+        
+        onModalCompleteDelegate()
         dismiss(animated: true)
     }
     

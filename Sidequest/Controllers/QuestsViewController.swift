@@ -25,6 +25,7 @@ class QuestsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // guard let currentUser = AppState.shared.currentUser else { return }
         
         headingLabel.text = heading
+        tableView.allowsSelection = true
     }
     
     // MARK: - TableView
@@ -36,12 +37,13 @@ class QuestsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // Create Cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "QuestCell", for: indexPath) as! QuestTableCell
+        guard let currentUser = AppState.shared.currentUser else { return cell }
         
         let quest = quests[indexPath.row]
         
         cell.titleLabel.text = quest.title
         cell.contentPreviewLabel.text = quest.content
-        let questStatus = quest.status.getStatusUIDetails()
+        let questStatus = quest.getStatus(fromUserPerspective: currentUser).getStatusUIDetails()
         cell.statusLabel.textColor = questStatus.0
         cell.statusLabel.text = questStatus.1
         
@@ -57,6 +59,19 @@ class QuestsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let newQuestViewController = self.storyboard?.instantiateViewController(withIdentifier: "NewQuestViewController") as! NewQuestViewController
+        
+        let quest = quests[indexPath.row]
+        
+        newQuestViewController.quest = quest
+        
+        newQuestViewController.onModalCompleteDelegate = { () -> Void in
+            tableView.reloadData()
+        }
+        
+        present(newQuestViewController, animated: true)
+    }
     
     // MARK: - Events
     
@@ -66,7 +81,16 @@ class QuestsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } else {
             editButton.image = UIImage.init(systemName: "pencil")
         }
-        
+
         tableView.setEditing(!tableView.isEditing, animated: true)
+    }
+    
+    // MARK: Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let newQuestViewController = segue.destination as? NewQuestViewController {
+            newQuestViewController.onModalCompleteDelegate = { () -> Void in
+                self.tableView.reloadData()
+            }
+        }
     }
 }

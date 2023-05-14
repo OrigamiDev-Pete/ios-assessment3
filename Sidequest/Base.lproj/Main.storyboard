@@ -290,7 +290,7 @@
         <!--NewQuestViewController-->
         <scene sceneID="LpW-UH-sdV">
             <objects>
-                <viewController title="NewQuestViewController" id="LOh-cZ-CB4" customClass="NewQuestViewController" customModule="Sidequest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewQuestViewController" title="NewQuestViewController" id="LOh-cZ-CB4" customClass="NewQuestViewController" customModule="Sidequest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IFW-Vk-26Q">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="832"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -349,26 +349,43 @@
                                 </date>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Acx-lV-Amn">
-                                <rect key="frame" x="143" y="508" width="107" height="35"/>
+                                <rect key="frame" x="143" y="445" width="107" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Add Friend"/>
                                 <connections>
                                     <segue destination="8Dg-8x-0v8" kind="presentation" id="IcV-SD-6Qo"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tun-IQ-Hcx">
-                                <rect key="frame" x="196.66666666666666" y="551" width="0.0" height="0.0"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="test" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tun-IQ-Hcx">
+                                <rect key="frame" x="182" y="490" width="29.333333333333343" height="20.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Rx-CG-pCl">
+                                <rect key="frame" x="133" y="754" width="130" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Update Quest"/>
+                                <connections>
+                                    <action selector="onUpdateQuestPressed:" destination="LOh-cZ-CB4" eventType="touchUpInside" id="nvX-Ot-bCW"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MFt-AP-Fbc">
+                                <rect key="frame" x="119" y="544" width="147.66666666666663" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Complete Quest"/>
+                                <connections>
+                                    <action selector="onCompletePressed:" destination="LOh-cZ-CB4" eventType="touchUpInside" id="Lu8-xY-ttg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EGE-xl-HNa"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="4SP-fU-2Xi" firstAttribute="top" secondItem="QNB-PA-sYW" secondAttribute="bottom" constant="19" id="4a7-d8-l67"/>
-                            <constraint firstItem="tun-IQ-Hcx" firstAttribute="top" secondItem="Acx-lV-Amn" secondAttribute="bottom" constant="8" symbolic="YES" id="4u0-qV-4r9"/>
+                            <constraint firstItem="tun-IQ-Hcx" firstAttribute="top" secondItem="Acx-lV-Amn" secondAttribute="bottom" constant="10" id="4u0-qV-4r9"/>
                             <constraint firstItem="tun-IQ-Hcx" firstAttribute="centerX" secondItem="IFW-Vk-26Q" secondAttribute="centerX" id="60F-Fw-M3w"/>
+                            <constraint firstItem="EGE-xl-HNa" firstAttribute="bottom" secondItem="5Rx-CG-pCl" secondAttribute="bottom" constant="43" id="D6L-HO-ph2"/>
                             <constraint firstItem="EGE-xl-HNa" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4SP-fU-2Xi" secondAttribute="trailing" symbolic="YES" id="EN9-mr-XnL"/>
                             <constraint firstItem="Acx-lV-Amn" firstAttribute="leading" secondItem="EGE-xl-HNa" secondAttribute="leading" constant="143" id="GSc-wM-MZP"/>
                             <constraint firstItem="2zJ-uY-NmA" firstAttribute="leading" secondItem="EGE-xl-HNa" secondAttribute="leading" constant="81" id="IBA-zK-1FU"/>
@@ -377,27 +394,36 @@
                             <constraint firstItem="QNB-PA-sYW" firstAttribute="leading" secondItem="EGE-xl-HNa" secondAttribute="leading" constant="16" id="OcF-rG-CaF"/>
                             <constraint firstItem="Tpj-NT-1EV" firstAttribute="top" secondItem="Moy-Ys-tk3" secondAttribute="bottom" constant="17" id="TMq-DE-UVo"/>
                             <constraint firstItem="E7c-Kp-9Me" firstAttribute="leading" secondItem="EGE-xl-HNa" secondAttribute="leading" constant="128" id="Uh9-x0-Gid"/>
+                            <constraint firstItem="5Rx-CG-pCl" firstAttribute="leading" secondItem="EGE-xl-HNa" secondAttribute="leading" constant="133" id="VXX-d6-KlC"/>
                             <constraint firstItem="QNB-PA-sYW" firstAttribute="top" secondItem="E7c-Kp-9Me" secondAttribute="bottom" constant="8" symbolic="YES" id="apH-LZ-HeS"/>
                             <constraint firstItem="Moy-Ys-tk3" firstAttribute="leading" secondItem="EGE-xl-HNa" secondAttribute="leading" id="cEm-Fh-alk"/>
                             <constraint firstItem="Tpj-NT-1EV" firstAttribute="leading" secondItem="EGE-xl-HNa" secondAttribute="leading" constant="16" id="dYA-UB-5on"/>
+                            <constraint firstItem="MFt-AP-Fbc" firstAttribute="leading" secondItem="EGE-xl-HNa" secondAttribute="leading" constant="119" id="edz-It-WXx"/>
                             <constraint firstItem="EGE-xl-HNa" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Acx-lV-Amn" secondAttribute="trailing" symbolic="YES" id="h4b-Zl-f5t"/>
+                            <constraint firstItem="MFt-AP-Fbc" firstAttribute="top" secondItem="tun-IQ-Hcx" secondAttribute="bottom" constant="33.666666666666686" id="hHu-Jp-toM"/>
+                            <constraint firstItem="EGE-xl-HNa" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MFt-AP-Fbc" secondAttribute="trailing" symbolic="YES" id="jYk-Op-oLd"/>
                             <constraint firstItem="EGE-xl-HNa" firstAttribute="trailing" secondItem="2zJ-uY-NmA" secondAttribute="trailing" constant="90" id="jm1-7p-Zrm"/>
                             <constraint firstItem="EGE-xl-HNa" firstAttribute="trailing" secondItem="Tpj-NT-1EV" secondAttribute="trailing" constant="16" id="pwP-PJ-elT"/>
+                            <constraint firstItem="EGE-xl-HNa" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5Rx-CG-pCl" secondAttribute="trailing" symbolic="YES" id="qIR-WV-DJi"/>
                             <constraint firstItem="4SP-fU-2Xi" firstAttribute="leading" secondItem="EGE-xl-HNa" secondAttribute="leading" constant="107" id="ray-Pl-UJc"/>
                             <constraint firstItem="Moy-Ys-tk3" firstAttribute="top" secondItem="EGE-xl-HNa" secondAttribute="top" id="v1j-L3-Tjv"/>
                             <constraint firstItem="EGE-xl-HNa" firstAttribute="trailing" secondItem="QNB-PA-sYW" secondAttribute="trailing" constant="16" id="vac-vV-cOX"/>
                             <constraint firstItem="EGE-xl-HNa" firstAttribute="trailing" secondItem="Moy-Ys-tk3" secondAttribute="trailing" id="w5F-Z3-Dnm"/>
                             <constraint firstItem="EGE-xl-HNa" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="E7c-Kp-9Me" secondAttribute="trailing" symbolic="YES" id="y2N-vq-sLo"/>
-                            <constraint firstItem="Acx-lV-Amn" firstAttribute="top" secondItem="2zJ-uY-NmA" secondAttribute="bottom" constant="98" id="zYR-OW-H7G"/>
+                            <constraint firstItem="Acx-lV-Amn" firstAttribute="top" secondItem="2zJ-uY-NmA" secondAttribute="bottom" constant="35" id="zYR-OW-H7G"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Msz-EQ-8ZW"/>
                     <size key="freeformSize" width="393" height="842"/>
                     <connections>
+                        <outlet property="addQuestButton" destination="oJi-ie-WsO" id="khi-dD-Dw1"/>
+                        <outlet property="completeButton" destination="MFt-AP-Fbc" id="evX-Yl-oXN"/>
                         <outlet property="contentTextField" destination="QNB-PA-sYW" id="D9b-VH-BAm"/>
+                        <outlet property="navItem" destination="nfo-HF-q8c" id="Jwl-jI-k39"/>
                         <outlet property="questCompletionDatePicker" destination="2zJ-uY-NmA" id="Tjb-OM-eeL"/>
                         <outlet property="selectedFriendLabel" destination="tun-IQ-Hcx" id="t5O-VV-8ge"/>
                         <outlet property="titleTextField" destination="Tpj-NT-1EV" id="qnF-2f-dXy"/>
+                        <outlet property="updateQuestButton" destination="5Rx-CG-pCl" id="xuj-gx-KvW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cNk-c4-ywU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
