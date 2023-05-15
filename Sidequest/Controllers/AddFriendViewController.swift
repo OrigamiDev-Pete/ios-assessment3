@@ -39,7 +39,7 @@ class AddFriendViewController: UIViewController {
     
     @IBAction func addFriendPressed(_ sender: UIButton) {
         
-        var questFriend = User(firstName: firstNameTextField.text!, lastName: lastNameTextField.text!, phoneNumber: phoneNumberTextField.text!, friendIds: [])
+        let questFriend = User(firstName: firstNameTextField.text!, lastName: lastNameTextField.text!, phoneNumber: phoneNumberTextField.text!, friendIds: [])
         apiService.addUser(questFriend)
         apiService.addFriend(userId: AppState.shared.currentUser!.id, friendFullName: questFriend.fullName, friendPhoneNumber: questFriend.phoneNumber)
         
