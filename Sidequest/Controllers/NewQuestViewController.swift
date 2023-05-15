@@ -10,6 +10,7 @@ import UIKit
 class NewQuestViewController: UIViewController {
 
     var onModalCompleteDelegate: () -> Void = {}
+    var onNewQuestDelegate: (_ newQuest: Quest?) -> Void = { newQuest in }
     
     var apiService: APIService!
     
@@ -92,7 +93,7 @@ class NewQuestViewController: UIViewController {
         
         apiService.addQuest(newQuest)
         
-        onModalCompleteDelegate()
+        onNewQuestDelegate(newQuest)
         dismiss(animated: true)
     }
     

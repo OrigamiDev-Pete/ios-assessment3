@@ -88,7 +88,10 @@ class QuestsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let newQuestViewController = segue.destination as? NewQuestViewController {
-            newQuestViewController.onModalCompleteDelegate = { () -> Void in
+            newQuestViewController.onNewQuestDelegate = { (newQuest) -> Void in
+                if let newQuest = newQuest {
+                    self.quests.append(newQuest)
+                }
                 self.tableView.reloadData()
             }
         }
