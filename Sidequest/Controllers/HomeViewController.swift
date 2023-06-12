@@ -11,66 +11,99 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var apiService: APIService!
     
-    var friends: [User] = []
+    var friends: [UserResponse] = []
     var quests: [Quest] = []
     @IBOutlet weak var allQuestsButton: ListButtonView!
     @IBOutlet weak var friendsTableView: UITableView!
     @IBOutlet weak var todayQuestsButton: ListButtonView!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Get the APIService
         apiService = (UIApplication.shared.delegate as? AppDelegate)?.apiService
-        
-        if let currentUser = apiService.login(phoneNumber: "111") {
-            AppState.shared.currentUser = currentUser
-        } else {
-            fatalError("User not found.")
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        // Populate Quests
-        reloadQuests()
-        
-        // Populate Friends
-        updateFriends()
+        checkTokenIsValid()
+        if (AppState.shared.token != nil) {
+            // Populate Quests
+            reloadQuests()
+            
+            // Populate Friends
+            updateFriends()
+        }
     }
     
     func reloadQuests() {
-       guard let currentUser = AppState.shared.currentUser else { return }
-        quests = apiService.getQuests(userId: currentUser.id)
-        allQuestsButton.amount = quests.count
-        
-        var todayQuestCount = 0;
-        for quest in quests {
-            if Calendar.current.isDateInToday(quest.endTime) {
-                todayQuestCount += 1
+        Task.init() {
+            let questResponses = await apiService.getQuests()
+            
+            quests = []
+            for response in questResponses {
+                quests.append(Quest(response: response))
             }
+            
+            allQuestsButton.amount = quests.count
+            
+            var todayQuestCount = 0;
+            for quest in quests {
+                if Calendar.current.isDateInToday(quest.endTime) {
+                    todayQuestCount += 1
+                }
+            }
+            todayQuestsButton.amount = todayQuestCount
+            friendsTableView.reloadData()
         }
-        todayQuestsButton.amount = todayQuestCount
-        friendsTableView.reloadData()
     }
     
     func updateFriends() {
-       guard let currentUser = AppState.shared.currentUser else { return }
-        friends = apiService.getFriends(friendIds: currentUser.friendIds)
-        friendsTableView.reloadData()
+        Task.init() {
+            friends = await apiService.getFriends()
+            friendsTableView.reloadData()
+        }
     }
     
-    private func getSharedQuests(friend: User) -> [Quest] {
+    private func getSharedQuests(friend: UserResponse) -> [Quest] {
         guard let currentUser = AppState.shared.currentUser else { return [] }
                 
         var sharedQuest: [Quest] = []
+        
+        let friendId = UUID(uuidString: friend.id)!
+        
         for quest in quests {
-            if quest.authorId == friend.id ||
+            if quest.authorId == friendId ||
                 quest.assigned.contains(currentUser.id) ||
-                quest.assigned.contains(friend.id) {
+                quest.assigned.contains(friendId) {
                 sharedQuest.append(quest)
             }
         }
         return sharedQuest
+    }
+    
+    func checkTokenIsValid() {
+        // Try to get the token from userDefaults
+        let userDefaults = UserDefaults.standard
+        //        userDefaults.removeObject(forKey: "token")
+        if let token = userDefaults.string(forKey: "token") {
+            AppState.shared.token = token
+            Task.init() {
+                let response = await apiService.getUser()
+                if let response = response {
+                    let user = User(response: response)
+                    AppState.shared.currentUser = user
+                }
+                if AppState.shared.token == nil {
+                    let signInViewController = self.storyboard?.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
+                    signInViewController.navigationItem.setHidesBackButton(true, animated: false)
+                    navigationController?.pushViewController(signInViewController, animated: false)
+                }
+            }
+        }
+        if AppState.shared.token == nil {
+            let signInViewController = self.storyboard?.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
+            signInViewController.navigationItem.setHidesBackButton(true, animated: false)
+            navigationController?.pushViewController(signInViewController, animated: false)
+        }
     }
     
     // MARK: - Events
@@ -109,8 +142,27 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let friend = friends[index.row]
         questsViewController.quests = getSharedQuests(friend: friend)
         questsViewController.heading = friend.fullName
+        questsViewController.selectedFriend = User(response: friend)
         
         navigationController?.pushViewController(questsViewController, animated: true)
+    }
+    
+    @IBAction func onLogoutPressed(_ sender: UIButton) {
+        AppState.shared.currentUser = nil
+        AppState.shared.token = nil
+        let signInViewController = self.storyboard?.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
+        signInViewController.navigationItem.setHidesBackButton(true, animated: false)
+        navigationController?.pushViewController(signInViewController, animated: false)
+    }
+    
+    @IBAction func onRefreshPressed(_ sender: UIButton) {
+        checkTokenIsValid()
+        if (AppState.shared.token != nil) {
+            // Populate Quests
+            reloadQuests()
+            // Populate Friends
+            updateFriends()
+        }
     }
     
     // MARK: - TableView
@@ -133,6 +185,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let newQuestViewController = segue.destination as? NewQuestViewController {
             newQuestViewController.onModalCompleteDelegate = reloadQuests
+            newQuestViewController.onNewQuestDelegate = { (newQuest) -> Void in
+                self.reloadQuests()
+            }
         }
         
         if let addFriendViewController = segue.destination as? AddFriendViewController {

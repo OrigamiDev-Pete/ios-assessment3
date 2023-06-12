@@ -9,18 +9,438 @@ import Foundation
 
 protocol APIService {
     func login(phoneNumber: String) -> User? // Obviously not a viable login function but will do for mocking
+    func login(phoneNumber: String, password: String) async -> String?
+    func register(registration: RegisterDto) async -> String?
+    func getUser() async -> UserResponse?
     func getUser(userId: UUID) -> User?
     func getFriends(friendIds: [UUID]) -> [User]
+    func getFriends() async -> [UserResponse]
     func addFriend(userId: UUID, friendFullName: String, friendPhoneNumber: String)
+    func sendFriendRequest(phoneNumber: String) async
+    func getFriendRequests() async -> [FriendRequest]
+    func acceptFriendRequest(friendId: UUID) async
+    func declineFriendRequest(friendId: UUID) async
     func addUser(_ user: User)
     func getQuests(userId: UUID) -> [Quest]
+    func getQuests() async -> [QuestResponse]
     func getQuest(questId: UUID) -> Quest?
-    func addQuest(_ quest: Quest)
-    func updateQuest(_ quest: Quest)
-    func deleteQuest(questId: UUID)
+//    func getQuest(questId: UUID) async -> QuestResponse?
+    func addQuest(_ quest: Quest) async
+    func updateQuest(_ quest: Quest) async
+    func deleteQuest(questId: UUID) async
+}
+
+class LiveAPIService: APIService {
+    let session = URLSession(configuration: .default)
+    
+    
+    func login(phoneNumber: String) -> User? {
+        fatalError("Don't use this login method.")
+    }
+    
+    func login(phoneNumber: String, password: String) async -> String? {
+        guard let url = URL(string: "http://sidequest.peterdevroom.com/auth/login") else { return nil }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("*/*", forHTTPHeaderField: "Accept")
+        
+        let parameters = ["phoneNumber": phoneNumber, "password": password]
+        let jsonData = try! JSONSerialization.data(withJSONObject: parameters)
+        request.httpBody = jsonData
+        
+        do {
+            let (data, response) = try await session.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    let token = String(data: data, encoding: .utf8)
+                    return token?.trimmingCharacters(in: CharacterSet(charactersIn: "\"\\"))
+                }
+                return nil
+            }
+            return nil
+        } catch let error {
+            print(error)
+            return nil
+        }
+    }
+    
+    func register(registration: RegisterDto) async -> String? {
+        guard let url = URL(string: "http://sidequest.peterdevroom.com/auth/register") else { return nil }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let jsonEncoder = JSONEncoder()
+        let jsonObject = try! jsonEncoder.encode(registration)
+        request.httpBody = jsonObject
+
+        do {
+            let (data, _) = try await session.data(for: request)
+            let token = String(data: data, encoding: .ascii)
+            return token
+        } catch let error {
+            print(error)
+            return nil
+        }
+    }
+    
+    func getUser() async -> UserResponse? {
+        guard let url = URL(string: "http://sidequest.peterdevroom.com/user") else { return nil }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(AppState.shared.token!)", forHTTPHeaderField: "Authorization")
+        
+        do {
+            let (data, response) = try await session.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    let user = try JSONDecoder().decode(UserResponse.self, from: data)
+                    return user
+                } else if httpResponse.statusCode == 401 {
+                    AppState.shared.token = nil
+                }
+                return nil
+            }
+            return nil
+        } catch let error {
+            print(error)
+            return nil
+        }
+    }
+    
+    func getUser(userId: UUID) -> User? {
+        return nil
+    }
+    
+    func getFriends(friendIds: [UUID]) -> [User] {
+        return []
+    }
+    
+    func getFriends() async -> [UserResponse] {
+        guard let url = URL(string: "http://sidequest.peterdevroom.com/friends") else { return [] }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(AppState.shared.token!)", forHTTPHeaderField: "Authorization")
+        
+        do {
+            let (data, response) = try await session.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    let friends = try JSONDecoder().decode([UserResponse].self, from: data)
+                    return friends
+                } else if httpResponse.statusCode == 401 {
+                    AppState.shared.token = nil
+                }
+                return []
+            }
+            return []
+        } catch let error {
+            print(error)
+            return []
+        }
+    }
+    
+    func addFriend(userId: UUID, friendFullName: String, friendPhoneNumber: String) {
+        return
+    }
+    
+    func sendFriendRequest(phoneNumber: String) async {
+        guard let url = URL(string: "http://sidequest.peterdevroom.com/friends/request") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("*/*", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(AppState.shared.token!)", forHTTPHeaderField: "Authorization")
+        
+        let parameters = ["phoneNumber": phoneNumber]
+        let jsonData = try! JSONSerialization.data(withJSONObject: parameters)
+        request.httpBody = jsonData
+        
+        do {
+            let (_, response) = try await session.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                } else if httpResponse.statusCode == 401 {
+                    AppState.shared.token = nil
+                }
+                return
+            }
+            return
+        } catch let error {
+            print(error)
+            return
+        }
+    }
+    
+    func getFriendRequests() async -> [FriendRequest] {
+        guard let url = URL(string: "http://sidequest.peterdevroom.com/friends/request") else { return [] }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(AppState.shared.token!)", forHTTPHeaderField: "Authorization")
+        
+        do {
+            let (data, response) = try await session.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    return try JSONDecoder().decode([FriendRequest].self, from: data)
+                } else if httpResponse.statusCode == 401 {
+                    AppState.shared.token = nil
+                }
+                return []
+            }
+            return []
+        } catch let error {
+            print(error)
+            return []
+        }
+    }
+    
+    func acceptFriendRequest(friendId: UUID) async {
+        guard let url = URL(string: "http://sidequest.peterdevroom.com/friends/request/accept/\(friendId)") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(AppState.shared.token!)", forHTTPHeaderField: "Authorization")
+        
+        do {
+            let (_, response) = try await session.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    return
+                } else if httpResponse.statusCode == 401 {
+                    AppState.shared.token = nil
+                }
+                return
+            }
+            return
+        } catch let error {
+            print(error)
+            return
+        }
+    }
+    
+    func declineFriendRequest(friendId: UUID) async {
+        guard let url = URL(string: "http://sidequest.peterdevroom.com/friends/request/decline/\(friendId)") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(AppState.shared.token!)", forHTTPHeaderField: "Authorization")
+        
+        do {
+            let (_, response) = try await session.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    return
+                } else if httpResponse.statusCode == 401 {
+                    AppState.shared.token = nil
+                }
+                return
+            }
+            return
+        } catch let error {
+            print(error)
+            return
+        }
+    }
+    
+    func addUser(_ user: User) {
+    }
+    
+    func getQuests(userId: UUID) -> [Quest] {
+        return []
+    }
+    
+    func getQuests() async -> [QuestResponse] {
+        guard let url = URL(string: "http://sidequest.peterdevroom.com/quests") else { return [] }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(AppState.shared.token!)", forHTTPHeaderField: "Authorization")
+        
+        do {
+            let (data, response) = try await session.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    return try JSONDecoder().decode([QuestResponse].self, from: data)
+                } else if httpResponse.statusCode == 401 {
+                    AppState.shared.token = nil
+                }
+                return []
+            }
+            return []
+        } catch let error {
+            print(error)
+            return []
+        }
+    }
+    
+    func getQuest(questId: UUID) -> Quest? {
+        return nil
+    }
+    
+//    func getQuest(questId: UUID) async -> Quest? {
+//        guard let url = URL(string: "http://sidequest.peterdevroom.com/friends/request") else { return [] }
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "GET"
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.addValue("application/json", forHTTPHeaderField: "Accept")
+//        request.addValue("Bearer \(AppState.shared.token!)", forHTTPHeaderField: "Authorization")
+//
+//        do {
+//            let (data, response) = try await session.data(for: request)
+//            if let httpResponse = response as? HTTPURLResponse {
+//                if httpResponse.statusCode == 200 {
+//                    return try JSONDecoder().decode([QuestResponse].self, from: data)
+//                } else if httpResponse.statusCode == 401 {
+//                    AppState.shared.token = nil
+//                }
+//                return []
+//            }
+//            return []
+//        } catch let error {
+//            print(error)
+//            return []
+//        }
+//    }
+    
+    func addQuest(_ quest: Quest) async {
+        guard let url = URL(string: "http://sidequest.peterdevroom.com/quests") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(AppState.shared.token!)", forHTTPHeaderField: "Authorization")
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let formattedDate = formatter.string(from: quest.endTime)
+        
+        let parameters = [
+            "title": quest.title,
+            "content": quest.content,
+            "authorId": quest.authorId.uuidString,
+            "assignedId": quest.assigned.count > 0 ? quest.assigned[0].uuidString : nil,
+            "endTime": formattedDate
+        ] as [String : Any?]
+        let jsonData = try! JSONSerialization.data(withJSONObject: parameters)
+        request.httpBody = jsonData
+        
+        do {
+            let (_, response) = try await session.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    return
+                } else if httpResponse.statusCode == 401 {
+                    AppState.shared.token = nil
+                }
+                return
+            }
+            return
+        } catch let error {
+            print(error)
+            return
+        }
+    }
+    
+    func updateQuest(_ quest: Quest) async {
+        guard let url = URL(string: "http://sidequest.peterdevroom.com/quests") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(AppState.shared.token!)", forHTTPHeaderField: "Authorization")
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let formattedDate = formatter.string(from: quest.endTime)
+        
+        let parameters = [
+            "id": quest.id.uuidString,
+            "title": quest.title,
+            "content": quest.content,
+            "authorId": quest.authorId.uuidString,
+            "assignedId": quest.assigned.count > 0 ? quest.assigned[0].uuidString : nil,
+            "endTime": formattedDate
+        ] as [String : Any?]
+        let jsonData = try! JSONSerialization.data(withJSONObject: parameters)
+        request.httpBody = jsonData
+        
+        do {
+            let (_, response) = try await session.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    return
+                } else if httpResponse.statusCode == 401 {
+                    AppState.shared.token = nil
+                }
+                return
+            }
+            return
+        } catch let error {
+            print(error)
+            return
+        }
+    }
+    
+    func deleteQuest(questId: UUID) async {
+        guard let url = URL(string: "http://sidequest.peterdevroom.com/quests/\(questId)") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(AppState.shared.token!)", forHTTPHeaderField: "Authorization")
+        
+        do {
+            let (_, response) = try await session.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    return
+                } else if httpResponse.statusCode == 401 {
+                    AppState.shared.token = nil
+                }
+                return
+            }
+            return
+        } catch let error {
+            print(error)
+            return
+        }
+    }
 }
 
 class MockAPIService: APIService {
+    func getQuests() async -> [QuestResponse] {
+        []
+    }
+    
+    func getFriends() async -> [UserResponse] {
+        []
+    }
+    
+    func acceptFriendRequest(friendId: UUID) async {
+    }
+    
+    func declineFriendRequest(friendId: UUID) async {
+    }
+    
+    func getFriendRequests() async -> [FriendRequest] {
+        []
+    }
+    
+    func sendFriendRequest(phoneNumber: String) async {
+    }
+    
     private var users: [UUID: User] = [:]
     private var quests: [UUID: Quest] = [:]
     
@@ -48,6 +468,18 @@ class MockAPIService: APIService {
             }
         }
         return nil
+    }
+    
+    func login(phoneNumber: String, password: String) async -> String? {
+        return nil
+    }
+    
+    func register(registration: RegisterDto) async -> String? {
+        return nil
+    }
+    
+    func getUser() async -> UserResponse? {
+        UserResponse()
     }
     
     func getUser(userId: UUID) -> User? {
@@ -101,15 +533,15 @@ class MockAPIService: APIService {
         self.quests[questId]
     }
     
-    func addQuest(_ quest: Quest) {
+    func addQuest(_ quest: Quest) async {
         self.quests[quest.id] = quest
     }
     
-    func updateQuest(_ quest: Quest) {
+    func updateQuest(_ quest: Quest) async {
         self.quests[quest.id] = quest
     }
     
-    func deleteQuest(questId: UUID) {
+    func deleteQuest(questId: UUID) async {
         self.quests.removeValue(forKey: questId)
     }
 }

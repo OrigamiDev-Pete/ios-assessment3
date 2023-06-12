@@ -12,7 +12,9 @@ class QuestDetailsViewController: UIViewController, UITableViewDelegate, UITable
     var onFriendSelectDelegate: ((User) -> Void)? = nil
     
     var apiService: APIService!
-    var friends: [User] = []
+    var friends: [UserResponse] = []
+    
+    @IBOutlet weak var friendTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +22,10 @@ class QuestDetailsViewController: UIViewController, UITableViewDelegate, UITable
         apiService = (UIApplication.shared.delegate as? AppDelegate)?.apiService
         
         guard let currentUser = AppState.shared.currentUser else { return }
-        friends = apiService.getFriends(friendIds: currentUser.friendIds)
+        Task.init() {
+            friends = await apiService.getFriends()
+            friendTable.reloadData()
+        }
     }
     
     // MARK: Table
@@ -40,7 +45,7 @@ class QuestDetailsViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let onFriendSelectDelegate = onFriendSelectDelegate {
-            onFriendSelectDelegate(friends[indexPath.row])
+            onFriendSelectDelegate(User(response: friends[indexPath.row]))
         }
         dismiss(animated: true)
     }

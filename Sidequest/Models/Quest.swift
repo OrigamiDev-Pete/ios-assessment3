@@ -13,7 +13,7 @@ class Quest: Identifiable {
     var title: String
     var content: String
     let authorId: UUID
-    var assigned: [UUID]
+    var assigned: [UUID] = []
     var compeletedBy: UUID? = nil
     var endTime: Date
     
@@ -24,6 +24,19 @@ class Quest: Identifiable {
         self.authorId = authorId
         self.assigned = assigned
         self.endTime = endTime
+    }
+    
+    init(response: QuestResponse) {
+        self.id = response.id
+        self.title = response.title
+        self.content = response.content
+        self.authorId = response.authorId
+        if let assignedId = response.assignedId {
+            self.assigned.append(assignedId)
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        self.endTime = formatter.date(from: response.endTime)!
     }
     
     func getStatus(fromUserPerspective user: User) -> (QuestStatus) {
@@ -62,4 +75,13 @@ enum QuestStatus {
         }
         
     }
+}
+
+class QuestResponse: Codable {
+    let id: UUID
+    let title: String
+    let content: String
+    let authorId: UUID
+    let assignedId: UUID?
+    let endTime: String
 }

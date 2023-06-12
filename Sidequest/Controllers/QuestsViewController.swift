@@ -11,6 +11,7 @@ class QuestsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var apiService: APIService!
     var quests: [Quest] = []
+    var selectedFriend: User? = nil
     
     @IBOutlet weak var headingLabel: UILabel!
     @IBOutlet weak var editButton: UIImageView!
@@ -53,9 +54,12 @@ class QuestsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // Delete Row
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            apiService.deleteQuest(questId: quests[indexPath.row].id)
-            quests.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            let questToRemoveId = quests[indexPath.row].id
+            Task.init() {
+                await apiService.deleteQuest(questId: questToRemoveId)
+                quests.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
         }
     }
     
@@ -88,6 +92,7 @@ class QuestsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let newQuestViewController = segue.destination as? NewQuestViewController {
+            newQuestViewController.selectedFriend = selectedFriend
             newQuestViewController.onNewQuestDelegate = { (newQuest) -> Void in
                 if let newQuest = newQuest {
                     self.quests.append(newQuest)

@@ -37,7 +37,17 @@ class NewQuestViewController: UIViewController {
         
         titleTextField.borderStyle = UITextField.BorderStyle.roundedRect
         
-        questCompletionDatePicker.minimumDate = Date.now
+        // Hack to remove milliseconds
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let formattedDate = formatter.string(from: Date.now)
+        
+        questCompletionDatePicker.minimumDate = formatter.date(from: formattedDate)
+        
+        // Auto fill selected friend when making a quest from the friend quests list
+        if let selectedFriend = selectedFriend {
+            selectedFriendLabel.text = selectedFriend.fullName
+        }
         
         // Editing a quest
         guard let currentUser = AppState.shared.currentUser else { return }
@@ -91,10 +101,12 @@ class NewQuestViewController: UIViewController {
             newQuest.assigned.append(selectedFriend.id)
         }
         
-        apiService.addQuest(newQuest)
-        
-        onNewQuestDelegate(newQuest)
-        dismiss(animated: true)
+        Task.init() {
+            await apiService.addQuest(newQuest)
+            
+            onNewQuestDelegate(newQuest)
+            dismiss(animated: true)
+        }
     }
     
     @IBAction func onCompletePressed(_ sender: UIButton) {
@@ -102,10 +114,13 @@ class NewQuestViewController: UIViewController {
         // Quest should be not nil to reach here
         quest!.compeletedBy = currentUser.id
         
-        apiService.updateQuest(quest!)
-        
-        onModalCompleteDelegate()
-        dismiss(animated: true)
+        Task.init() {
+            await apiService.updateQuest(quest!)
+            
+            onModalCompleteDelegate()
+            dismiss(animated: true)
+            
+        }
         
     }
     
@@ -119,10 +134,12 @@ class NewQuestViewController: UIViewController {
             quest!.assigned.append(selectedFriend.id)
         }
         
-        apiService.updateQuest(quest!)
-        
-        onModalCompleteDelegate()
-        dismiss(animated: true)
+        Task.init() {
+            await apiService.updateQuest(quest!)
+            
+            onModalCompleteDelegate()
+            dismiss(animated: true)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

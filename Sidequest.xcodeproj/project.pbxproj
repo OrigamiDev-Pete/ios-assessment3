@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		6CFD128A2A0DE8B000483717 /* FriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFD12892A0DE8B000483717 /* FriendView.swift */; };
 		6CFD128C2A0DEDAE00483717 /* FriendTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFD128B2A0DEDAE00483717 /* FriendTableCell.swift */; };
+		D01A68052A3313B7006C48C4 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01A68042A3313B7006C48C4 /* SignInViewController.swift */; };
+		D01A68072A3313CD006C48C4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01A68062A3313CD006C48C4 /* SignUpViewController.swift */; };
+		D01A68092A34372A006C48C4 /* FriendRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01A68082A34372A006C48C4 /* FriendRequestViewController.swift */; };
+		D01A680B2A343775006C48C4 /* FriendRequestTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01A680A2A343775006C48C4 /* FriendRequestTableCell.swift */; };
 		D04FC8BC2A05D62F00050186 /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8BB2A05D62F00050186 /* Quest.swift */; };
 		D04FC8BE2A05D86000050186 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8BD2A05D86000050186 /* User.swift */; };
 		D04FC8C02A05DBFC00050186 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FC8BF2A05DBFC00050186 /* APIService.swift */; };
@@ -32,6 +36,10 @@
 /* Begin PBXFileReference section */
 		6CFD12892A0DE8B000483717 /* FriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendView.swift; sourceTree = "<group>"; };
 		6CFD128B2A0DEDAE00483717 /* FriendTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableCell.swift; sourceTree = "<group>"; };
+		D01A68042A3313B7006C48C4 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		D01A68062A3313CD006C48C4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		D01A68082A34372A006C48C4 /* FriendRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestViewController.swift; sourceTree = "<group>"; };
+		D01A680A2A343775006C48C4 /* FriendRequestTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestTableCell.swift; sourceTree = "<group>"; };
 		D04FC8BB2A05D62F00050186 /* Quest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = "<group>"; };
 		D04FC8BD2A05D86000050186 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D04FC8BF2A05DBFC00050186 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -68,11 +76,14 @@
 		D04FC8B82A05D58D00050186 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D01A68042A3313B7006C48C4 /* SignInViewController.swift */,
+				D01A68062A3313CD006C48C4 /* SignUpViewController.swift */,
 				D0FEAFC72A049A59003E6738 /* HomeViewController.swift */,
 				D04FC8E62A05FD8400050186 /* QuestsViewController.swift */,
 				D04FC8EA2A05FDFF00050186 /* NewQuestViewController.swift */,
 				D04FC8EC2A05FE0900050186 /* QuestDetailsViewController.swift */,
 				D04FC8EE2A05FE1600050186 /* AddFriendViewController.swift */,
+				D01A68082A34372A006C48C4 /* FriendRequestViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -103,6 +114,7 @@
 				D04FC8FB2A06364200050186 /* ListButtonView.xib */,
 				D04FC8FD2A0636E000050186 /* ListButtonView.swift */,
 				6CFD12892A0DE8B000483717 /* FriendView.swift */,
+				D01A680A2A343775006C48C4 /* FriendRequestTableCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -216,10 +228,14 @@
 				6CFD128C2A0DEDAE00483717 /* FriendTableCell.swift in Sources */,
 				D04FC8EF2A05FE1700050186 /* AddFriendViewController.swift in Sources */,
 				D04FC8BC2A05D62F00050186 /* Quest.swift in Sources */,
+				D01A68092A34372A006C48C4 /* FriendRequestViewController.swift in Sources */,
+				D01A680B2A343775006C48C4 /* FriendRequestTableCell.swift in Sources */,
 				D04FC8E72A05FD8400050186 /* QuestsViewController.swift in Sources */,
 				D04FC8ED2A05FE0900050186 /* QuestDetailsViewController.swift in Sources */,
 				D0FEAFC82A049A59003E6738 /* HomeViewController.swift in Sources */,
+				D01A68072A3313CD006C48C4 /* SignUpViewController.swift in Sources */,
 				D04FC8F42A0619DD00050186 /* QuestTableCell.swift in Sources */,
+				D01A68052A3313B7006C48C4 /* SignInViewController.swift in Sources */,
 				D0FEAFC42A049A59003E6738 /* AppDelegate.swift in Sources */,
 				D04FC8F82A06282C00050186 /* RoundedView.swift in Sources */,
 				D04FC8FE2A0636E000050186 /* ListButtonView.swift in Sources */,
