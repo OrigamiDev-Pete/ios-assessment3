@@ -21,7 +21,6 @@ class QuestDetailsViewController: UIViewController, UITableViewDelegate, UITable
         // Get the APIService
         apiService = (UIApplication.shared.delegate as? AppDelegate)?.apiService
         
-        guard let currentUser = AppState.shared.currentUser else { return }
         Task.init() {
             friends = await apiService.getFriends()
             friendTable.reloadData()

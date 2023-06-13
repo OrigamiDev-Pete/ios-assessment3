@@ -28,6 +28,7 @@ protocol APIService {
     func addQuest(_ quest: Quest) async
     func updateQuest(_ quest: Quest) async
     func deleteQuest(questId: UUID) async
+    func completeQuest(questId: UUID) async
 }
 
 class LiveAPIService: APIService {
@@ -417,9 +418,38 @@ class LiveAPIService: APIService {
             return
         }
     }
+    
+    func completeQuest(questId: UUID) async {
+        guard let url = URL(string: "http://sidequest.peterdevroom.com/quests/complete/\(questId)") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(AppState.shared.token!)", forHTTPHeaderField: "Authorization")
+        
+        do {
+            let (_, response) = try await session.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    return
+                } else if httpResponse.statusCode == 401 {
+                    AppState.shared.token = nil
+                }
+                return
+            }
+            return
+        } catch let error {
+            print(error)
+            return
+        }
+        
+    }
 }
 
 class MockAPIService: APIService {
+    func completeQuest(questId: UUID) async {
+    }
+    
     func getQuests() async -> [QuestResponse] {
         []
     }

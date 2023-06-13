@@ -34,6 +34,9 @@ class Quest: Identifiable {
         if let assignedId = response.assignedId {
             self.assigned.append(assignedId)
         }
+        if let compeletedBy = response.completedById {
+            self.compeletedBy = compeletedBy
+        }
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         self.endTime = formatter.date(from: response.endTime)!
@@ -83,5 +86,6 @@ class QuestResponse: Codable {
     let content: String
     let authorId: UUID
     let assignedId: UUID?
+    let completedById: UUID?
     let endTime: String
 }

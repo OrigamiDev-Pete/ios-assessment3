@@ -115,7 +115,7 @@ class NewQuestViewController: UIViewController {
         quest!.compeletedBy = currentUser.id
         
         Task.init() {
-            await apiService.updateQuest(quest!)
+            await apiService.completeQuest(questId: quest!.id)
             
             onModalCompleteDelegate()
             dismiss(animated: true)
